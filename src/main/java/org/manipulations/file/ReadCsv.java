@@ -11,7 +11,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
-import org.objects.car.People;
+import org.objects.people.People;
 
 public class ReadCsv {
 
