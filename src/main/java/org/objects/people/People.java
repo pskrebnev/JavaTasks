@@ -1,4 +1,4 @@
-package org.objects.car;
+package org.objects.people;
 
 public class People {
 

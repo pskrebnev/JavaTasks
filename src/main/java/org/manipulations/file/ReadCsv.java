@@ -11,7 +11,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
-import org.objects.car.People;
+import org.objects.people.People;
 
 public class ReadCsv {
 
@@ -25,7 +25,7 @@ public class ReadCsv {
     try {
       assert input != null;
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-          CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT)) {
+          CSVParser parser = new CSVParser(reader, CSVFormat.RFC4180)) {
         for (CSVRecord record : parser) {
           peopleList.add(new People(
               Integer.parseInt(record.get(0)),
