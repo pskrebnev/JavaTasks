@@ -24,6 +24,9 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation("commons-io:commons-io:2.16.1")
 
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
+    implementation("org.apache.commons:commons-csv:1.11.0")
+
 }
 
 tasks.test {
