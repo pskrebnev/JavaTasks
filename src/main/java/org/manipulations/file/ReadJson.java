@@ -17,22 +17,14 @@ public class ReadJson {
   public static ImmutableList<Car> getCarsList() throws IOException {
 
     String fileName = "carModels.json";
-
     ClassLoader cl = ReadJson.class.getClassLoader();
-
-    // 3. Input
     InputStream input = cl.getResourceAsStream(fileName);
-
-    // 4. JSON
     assert input != null;
     String json = IOUtils.toString(input, Charset.defaultCharset());
-
-    // Type creation
-    Type listType = new TypeToken<ArrayList<Car>>(){}.getType();
-
+    Type listType = new TypeToken<ArrayList<Car>>() {
+    }.getType();
     List<Car> cars = new Gson().fromJson(json, listType);
     return ImmutableList.copyOf(cars);
 
   }
-
 }
