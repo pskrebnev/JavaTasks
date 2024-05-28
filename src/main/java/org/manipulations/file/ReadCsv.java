@@ -26,19 +26,23 @@ public class ReadCsv {
 
     try {
       assert input != null;
-      try (BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-          CSVParser parser = new CSVParser(reader, CSVFormat.RFC4180)) {
-        for (CSVRecord record : parser) {
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
+        Iterable<CSVRecord> records = CSVFormat.RFC4180.builder()
+            .setHeader()
+            .setSkipHeaderRecord(true)
+            .build().parse(reader);
+
+        for (CSVRecord record : records) {
           peopleList.add(new People(
-              Integer.parseInt(record.get(0)),
-              record.get(1),
-              record.get(2),
-              record.get(3),
-              record.get(4),
-              Integer.parseInt(record.get(5)),
-              Boolean.parseBoolean(record.get(6)),
-              record.get(7),
-              record.get(8)));
+              Integer.parseInt(record.get("id")),
+              record.get("firstName"),
+              record.get("lastName"),
+              record.get("eMail"),
+              record.get("gender"),
+              Integer.parseInt(record.get("age")),
+              Boolean.parseBoolean(record.get("isMaried")),
+              record.get("homeCountry"),
+              record.get("homeCity")));
         }
 
         return ImmutableList.copyOf(peopleList);
