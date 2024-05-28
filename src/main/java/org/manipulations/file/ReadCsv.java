@@ -14,8 +14,6 @@ import java.io.IOException;
 import org.objects.people.People;
 
 public class ReadCsv {
-//  import com.opencsv.CSVReader;
-//  import com.opencsv.exceptions.CsvException;
 
   public static ImmutableList<People> getPeople() {
     List<People> peopleList = new ArrayList<>();
@@ -29,7 +27,7 @@ public class ReadCsv {
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
         Iterable<CSVRecord> records = CSVFormat.RFC4180.builder()
             .setHeader()
-            .setSkipHeaderRecord(true)
+            .setSkipHeaderRecord(false)
             .build().parse(reader);
 
         for (CSVRecord record : records) {
