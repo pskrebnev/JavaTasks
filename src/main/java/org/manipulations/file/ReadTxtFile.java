@@ -15,11 +15,8 @@ public class ReadTxtFile {
   public static List<String> getRowResults() {
 
     List<String> rowList = new ArrayList<>();
-
     String fileName = "results.txt";
-
     ClassLoader cl = ReadTxtFile.class.getClassLoader();
-
     InputStream input = cl.getResourceAsStream(fileName);
 
     try {
@@ -27,11 +24,10 @@ public class ReadTxtFile {
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
 
         String line;
-
         while ((line = reader.readLine()) != null) {
-
           rowList.add(line);
         }
+
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
