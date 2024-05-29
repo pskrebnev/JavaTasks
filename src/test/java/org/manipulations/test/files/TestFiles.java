@@ -10,7 +10,7 @@ public class TestFiles {
 
   @Test
   public void testReadingTxt() {
-    ReadTxtFile.getRowResults().stream()
+    ReadTxtFile.getGames(ReadTxtFile.getRowResults()).stream()
         .limit(5)
         .forEach(System.out::println);
   }
