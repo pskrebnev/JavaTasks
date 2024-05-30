@@ -1,0 +1,2 @@
+1. Create methods for writing to txt, json, csv
+2.
