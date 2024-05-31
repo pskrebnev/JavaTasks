@@ -1,0 +1,22 @@
+1. Create methods for reading / writing to txt, json, csv, properties
+
+Reading:
+[ ] txt (as file in 'properties' folder)
+[ ] txt (as file in any folder, line-by-line)
+[ ] json (with object creation, as file in 'properties' folder)
+[ ] csv (with object creation, as file in 'properties' folder)
+[ ] properties (as file in 'properties' folder)
+
+Writing:
+[ ] txt (as file in 'properties' folder)
+[ ] txt (as file in any folder, line-by-line)
+[ ] json (with object creation, as file in 'properties' folder)
+[ ] csv (with object creation, as file in 'properties' folder)
+[ ] properties (as file in 'properties' folder)
+
+
+2. Manipulation with objects (sorting, querying, creation new 'Map', 'List' etc.)
+
+
+
+
