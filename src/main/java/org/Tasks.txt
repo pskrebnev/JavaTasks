@@ -1,9 +1,12 @@
 1. Create methods for reading / writing to txt, json, csv, properties
 
 Reading:
-[ ] txt (as file in 'properties' folder)
-[ ] txt (as file in any folder, line-by-line)
-[ ] json (with object creation, as file in 'properties' folder)
+[x] txt (as file in 'properties' folder)
+
+[x] txt (as file in any folder, line-by-line)
+
+[x] json (with object creation, as file in 'properties' folder)
+
 [x] csv (with object creation, as file in 'properties' folder)
 https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVParser.html
 https://commons.apache.org/proper/commons-csv/user-guide.html
