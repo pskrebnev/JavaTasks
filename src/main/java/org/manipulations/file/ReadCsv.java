@@ -25,6 +25,20 @@ public class ReadCsv {
       assert input != null;
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
         Iterable<CSVRecord> records = CSVFormat.RFC4180.builder()
+            // in case of absent header row
+            // we can set our own headers
+//            .setHeader("id"
+//                , "firstName"
+//                , "lastName"
+//                , "eMail"
+//                , "gender"
+//                , "age"
+//                , "isMaried"
+//                , "homeCountry"
+//                , "homeCity")
+//            .setSkipHeaderRecord(true)
+
+            // in case of headers present
             .setHeader()
             .setSkipHeaderRecord(false)
             .build().parse(reader);
