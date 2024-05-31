@@ -4,7 +4,10 @@ Reading:
 [ ] txt (as file in 'properties' folder)
 [ ] txt (as file in any folder, line-by-line)
 [ ] json (with object creation, as file in 'properties' folder)
-[ ] csv (with object creation, as file in 'properties' folder)
+[x] csv (with object creation, as file in 'properties' folder)
+https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVParser.html
+https://commons.apache.org/proper/commons-csv/user-guide.html
+
 [ ] properties (as file in 'properties' folder)
 
 Writing:
@@ -12,7 +15,14 @@ Writing:
 [ ] txt (as file in any folder, line-by-line)
 [ ] json (with object creation, as file in 'properties' folder)
 [ ] csv (with object creation, as file in 'properties' folder)
+https://springhow.com/apache-commons-csv/
+https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVParser.html
+
 [ ] properties (as file in 'properties' folder)
+
+Others:
+https://mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
+https://commons.apache.org/proper/commons-csv/user-guide.html
 
 
 2. Manipulation with objects (sorting, querying, creation new 'Map', 'List' etc.)
