@@ -17,13 +17,13 @@ public class ReadByLines {
     try(Stream<String> rows = Files.lines(Paths.get(filePath + fileName))) {
 
       return rows
-          .limit(5)
           .collect(Collectors.toList());
     }
   }
 
   public static void main(String[] args) throws IOException {
     readLineByLine()
+        .stream().limit(10)
         .forEach(System.out::println);
   }
 }
