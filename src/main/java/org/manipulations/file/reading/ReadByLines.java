@@ -1,4 +1,4 @@
-package org.manipulations.file;
+package org.manipulations.file.reading;
 
 import java.io.IOException;
 import java.nio.file.Files;
