@@ -1,4 +1,4 @@
-package org.manipulations.file;
+package org.manipulations.file.reading;
 
 import com.google.common.collect.ImmutableList;
 import java.io.BufferedReader;
