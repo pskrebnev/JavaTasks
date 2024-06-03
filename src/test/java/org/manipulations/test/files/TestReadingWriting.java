@@ -24,7 +24,7 @@ public class TestReadingWriting {
       System.out.println("Error creating directory: " + e.getMessage());
     }
 
-    Path filePath = Paths.get(propertiesRoot, folderRoot + fileName);
+    Path filePath = Paths.get(propertiesRoot, folderRoot, fileName);
 
     try {
       Files.createFile(filePath);
