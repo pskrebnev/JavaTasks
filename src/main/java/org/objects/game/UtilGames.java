@@ -25,6 +25,7 @@ public class UtilGames {
         .collect(Collectors.toList());
   }
 
+  // returns Map<String, Long> where String = 'team', Long = 'number of wins' sorted in DESC order
   public static Map<String, Long> getWinnsMap(List<String> list) {
 
     return list.stream()
