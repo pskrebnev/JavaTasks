@@ -10,6 +10,8 @@ Reading:
 [x] csv (with object creation, as file in 'properties' folder)
 https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVParser.html
 https://commons.apache.org/proper/commons-csv/user-guide.html
+https://www.baeldung.com/apache-commons-csv
+
 
 [ ] properties (as file in 'properties' folder)
 
@@ -26,6 +28,10 @@ https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSV
 Others:
 https://mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
 https://commons.apache.org/proper/commons-csv/user-guide.html
+
+For 'WatchFolderService' in 'package org.manipulations.file.monitor;'
+1. Write logs to file
+2. Change 'System.'
 
 
 2. Manipulation with objects (sorting, querying, creation new 'Map', 'List' etc.)
