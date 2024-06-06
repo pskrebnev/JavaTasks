@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
@@ -122,7 +123,7 @@ public class TestFiles {
         + " It’s a unique identifier such as an employee ID, student ID"
         + ", voter’s identification number (VIN), and so on.";
 
-    String toFind = "data";
+    String toFind = "fi";
 
     int count = initStr.chars()
         .mapToObj(c -> (char) c)
