@@ -3,14 +3,17 @@ package org.tasks.execution;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+// Tasks from 'Java 21, Java 17, Java 11 and Advanced Java 8' training (on Udemy)
 public class LambdasAndMethodReferences {
 
   public static void main(String[] args) {
 //    staticMR();
-    boundMR();
+//    boundMR();
+    unboundMR();
 
   }
 
@@ -34,6 +37,7 @@ public class LambdasAndMethodReferences {
   public static void boundMR() {
 
     String name = "Mr. Joe Bloggs";
+
     Predicate<String> isStartedWithLambda = pre -> name.startsWith(pre);
 
     System.out.println("Started with ? 'Mr.' = " + isStartedWithLambda.test("Mr."));
@@ -46,10 +50,33 @@ public class LambdasAndMethodReferences {
   }
 
   public static void unboundMR() {
+    String pre1 = "Mr.";
+    String pre2 = "Ms.";
+    String name = "Mr. Joe Bloggs";
 
+    Predicate<String> isEmptyLambda = s -> s.isEmpty();
+
+    System.out.println("Text empty? = " + isEmptyLambda.test(""));
+    System.out.println("Text empty? = " + isEmptyLambda.test("xyz"));
+
+    Predicate<String> isEmptyMR = String::isEmpty;
+
+    System.out.println("Text empty? = " + isEmptyMR.test(""));
+    System.out.println("Text empty? = " + isEmptyMR.test("xyz"));
+
+    BiPredicate<String, String> startsWithLambda = (s1, s2) -> s1.startsWith(s2);
+
+    System.out.println("Is started? (L) = " + startsWithLambda.test(name, pre1));
+    System.out.println("Is started? (L) = " + startsWithLambda.test(name, pre2));
+
+    BiPredicate<String, String> startsWithMR = String::startsWith;
+
+    System.out.println("Is started? (MR) = " + startsWithMR.test(name, pre1));
+    System.out.println("Is started? (MR) = " + startsWithMR.test(name, pre2));
   }
 
   public static void constructorMR() {
+
 
   }
 
