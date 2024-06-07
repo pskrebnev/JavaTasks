@@ -7,6 +7,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+// Tasks from 'Java 21, Java 17, Java 11 and Advanced Java 8' training (on Udemy)
 public class LambdasAndMethodReferences {
 
   public static void main(String[] args) {
