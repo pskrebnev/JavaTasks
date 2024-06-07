@@ -27,12 +27,12 @@ public class LambdasAndMethodReferences {
         Retrievable getBack = () -> 77;
         System.out.println("With 'Retr': " + getBack.retrieve());
 
-        Supplier<Integer> print77 = () -> {
-            System.out.println(77);
+        Supplier<Integer> print77Lambda = () -> {
+            System.out.println("Lambda: " + 77);
             return 0;
         };
 
-        System.out.println("With 'Supplier': " + print77.get());
+        System.out.println("With 'Supplier': " + print77Lambda.get());
     }
 
     public static void consumer() {
