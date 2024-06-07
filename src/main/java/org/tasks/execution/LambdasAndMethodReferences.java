@@ -16,7 +16,8 @@ public class LambdasAndMethodReferences {
 
   public static void main(String[] args) {
 //    consumer();
-    supplier();
+//    supplier();
+    predicate();
 //    staticMR();
 //    boundMR();
 //    unboundMR();
@@ -36,6 +37,10 @@ public class LambdasAndMethodReferences {
   }
 
   public static void predicate() {
+    Evaluate<Integer> isNegative = num -> num < 0 ? true : false;
+
+    System.out.println("Lamd: '-1': " + isNegative.eval(-1));
+    System.out.println("Lamd: '+1': " + isNegative.eval(1));
 
   }
 
