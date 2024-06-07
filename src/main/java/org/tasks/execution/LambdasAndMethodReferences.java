@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 // Tasks from 'Java 21, Java 17, Java 11 and Advanced Java 8' training (on Udemy)
+// link: https://luxoft.udemy.com/course/ocp11_from_oca8/
 public class LambdasAndMethodReferences {
 
   public static void main(String[] args) {
