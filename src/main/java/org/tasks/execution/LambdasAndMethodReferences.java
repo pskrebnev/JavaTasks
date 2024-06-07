@@ -1,19 +1,24 @@
 package org.tasks.execution;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
+// Tasks from 'Java 21, Java 17, Java 11 and Advanced Java 8' training (on Udemy)
+// link: https://luxoft.udemy.com/course/ocp11_from_oca8/
 public class LambdasAndMethodReferences {
 
   public static void main(String[] args) {
 //    staticMR();
 //    boundMR();
-    unboundMR();
-
+//    unboundMR();
+    constructorMR();
   }
 
   public static void staticMR() {
@@ -75,9 +80,34 @@ public class LambdasAndMethodReferences {
   }
 
   public static void constructorMR() {
+    String lambda = "Lambda";
+    String mRef = "Method Reference";
 
+    Supplier<List<String>> suppListLambda = () -> new ArrayList<>();
 
+    List<String> newList = suppListLambda.get();
+    newList.add(lambda);
+
+    System.out.println("With L: " + newList);
+
+    // method reference
+    Supplier<List<String>> suppListMR = ArrayList::new;
+    newList = suppListMR.get();
+    newList.add(mRef);
+
+    System.out.println("With MR: " + newList);
+
+    Function<Integer, List<String>> getListWithLambda = n -> new ArrayList<>(n);
+    newList = getListWithLambda.apply(10);
+    newList.add(lambda);
+
+    System.out.println("With L + F:" + newList);
+
+    // method reference
+    Function<Integer, List<String>> getListWithMR = ArrayList::new;
+    List<String> anotherList = getListWithMR.apply(20);
+    anotherList.add(mRef);
+
+    System.out.println("With MR + F:" + anotherList);
   }
-
-
 }
