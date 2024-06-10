@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -41,6 +42,10 @@ public class LambdasAndMethodReferences {
 
     System.out.println("Lamd: '-1': " + isNegative.eval(-1));
     System.out.println("Lamd: '+1': " + isNegative.eval(1));
+
+    IntPredicate isMoreZero = num -> num < 0;
+    System.out.println("Lambd 'isMoreZero': '-1': " + isMoreZero.test(-1));
+    System.out.println("Lambd 'isMoreZero': '+1': " + isMoreZero.test(1));
 
 
 
