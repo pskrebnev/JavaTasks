@@ -18,7 +18,8 @@ public class LambdasAndMethodReferences {
   public static void main(String[] args) {
 //    consumer();
 //    supplier();
-    predicate();
+//    predicate();
+    function();
 //    staticMR();
 //    boundMR();
 //    unboundMR();
@@ -43,7 +44,6 @@ public class LambdasAndMethodReferences {
     Predicate<String> isStartedMr = str -> str.startsWith("Mr.");
     Predicate<Integer> isPersonAdult = num -> num >= 18;
 
-
     System.out.println("Lamd: '-1': " + isNegative.eval(-1));
     System.out.println("Lamd: '+1': " + isNegative.eval(1));
 
@@ -66,11 +66,17 @@ public class LambdasAndMethodReferences {
         + isAdult.check(33, isPersonAdult));
     System.out.println("Person adult?: 'Ann, 13': "
         + isAdult.check(13, isPersonAdult));
+  }
 
+  public static void function() {
+    Functionable append = n -> "Number is: ".concat(String.valueOf(n));
+    Function<Integer, String> appendFun = n -> "Number is: ".concat(String.valueOf(n));
 
+    System.out.println("With custom Interface");
+    System.out.println(append.funct(25));
 
-
-
+    System.out.println("With custom Function");
+    System.out.println(appendFun.apply(25));
   }
 
   public static void consumer() {
