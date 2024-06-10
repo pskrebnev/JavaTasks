@@ -39,6 +39,10 @@ public class LambdasAndMethodReferences {
 
   public static void predicate() {
     Evaluate<Integer> isNegative = num -> num < 0 ? true : false;
+    Predicate<Integer> isNumberEven = n -> n % 2 == 0;
+    Predicate<String> isStartedMr = str -> str.startsWith("Mr.");
+    Predicate<Integer> isPersonAdult = num -> num >= 18;
+
 
     System.out.println("Lamd: '-1': " + isNegative.eval(-1));
     System.out.println("Lamd: '+1': " + isNegative.eval(1));
@@ -46,6 +50,24 @@ public class LambdasAndMethodReferences {
     IntPredicate isMoreZero = num -> num < 0;
     System.out.println("Lambd 'isMoreZero': '-1': " + isMoreZero.test(-1));
     System.out.println("Lambd 'isMoreZero': '+1': " + isMoreZero.test(1));
+
+    Matcheble<Integer, Predicate> isEven = (num, condition) -> condition.test(num);
+    System.out.println("Lambd 'isEven': '4': " + isEven.check(4, isNumberEven));
+    System.out.println("Lambd 'isEven': '7': " + isEven.check(7, isNumberEven));
+
+    Matcheble<String, Predicate> isStarted = (str, cond) -> cond.test(str);
+    System.out.println("Started with 'Mr.': 'Mr. Joe Bloggs': "
+        + isStarted.check("Mr. Joe Bloggs", isStartedMr));
+    System.out.println("Started with 'Mr.': 'Ms. Ann Bloggs': "
+        + isStarted.check("Ms. Ann Bloggs", isStartedMr));
+
+    Matcheble<Integer, Predicate> isAdult = (i, condition) -> condition.test(i);
+    System.out.println("Person adult?: 'Mike, 33': "
+        + isAdult.check(33, isPersonAdult));
+    System.out.println("Person adult?: 'Ann, 13': "
+        + isAdult.check(13, isPersonAdult));
+
+
 
 
 
