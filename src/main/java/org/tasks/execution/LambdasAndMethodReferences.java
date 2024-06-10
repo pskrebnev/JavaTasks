@@ -42,6 +42,8 @@ public class LambdasAndMethodReferences {
     System.out.println("Lamd: '-1': " + isNegative.eval(-1));
     System.out.println("Lamd: '+1': " + isNegative.eval(1));
 
+
+
   }
 
   public static void consumer() {
