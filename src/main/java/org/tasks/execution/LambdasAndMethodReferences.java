@@ -131,7 +131,6 @@ public class LambdasAndMethodReferences {
     System.out.println("With MR + F:" + anotherList);
   }
 
-
   private static List<Integer> sort(List<Integer> list
       , Comparator<Integer> comparator) {
     List<Integer> sortedList = new ArrayList<>(list);
