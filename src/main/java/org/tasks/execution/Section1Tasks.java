@@ -24,7 +24,6 @@ public class Section1Tasks {
     supplier();
     predicate();
     function();
-    constructorMR();
   }
 
   public static List<Person> sortHeight(List<Person> listPersons) {
@@ -118,38 +117,6 @@ public class Section1Tasks {
     Printable<String> printableMR = System.out::println;
     printableLambda.print("Printable lambda");
     printableMR.print("Printable method reference");
-  }
-
-  public static void constructorMR() {
-    String lambda = "Lambda";
-    String mRef = "Method Reference";
-
-    Supplier<List<String>> suppListLambda = () -> new ArrayList<>();
-
-    List<String> newList = suppListLambda.get();
-    newList.add(lambda);
-
-    System.out.println("With L: " + newList);
-
-    // method reference
-    Supplier<List<String>> suppListMR = ArrayList::new;
-    newList = suppListMR.get();
-    newList.add(mRef);
-
-    System.out.println("With MR: " + newList);
-
-    Function<Integer, List<String>> getListWithLambda = n -> new ArrayList<>(n);
-    newList = getListWithLambda.apply(10);
-    newList.add(lambda);
-
-    System.out.println("With L + F:" + newList);
-
-    // method reference
-    Function<Integer, List<String>> getListWithMR = ArrayList::new;
-    List<String> anotherList = getListWithMR.apply(20);
-    anotherList.add(mRef);
-
-    System.out.println("With MR + F:" + anotherList);
   }
 
   private static List<Person> getPeople() {
