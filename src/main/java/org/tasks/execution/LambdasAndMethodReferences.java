@@ -20,6 +20,8 @@ public class LambdasAndMethodReferences {
   public static void main(String[] args) {
     List<Person> listPeople = getPeople();
     sortAge(listPeople).forEach(System.out::println);
+    System.out.println("<===>");
+    sortName(listPeople).forEach(System.out::println);
 
 //    consumer();
 //    supplier();
@@ -29,6 +31,14 @@ public class LambdasAndMethodReferences {
 //    boundMR();
 //    unboundMR();
 //    constructorMR();
+  }
+
+  public static List<Person> sortName(List<Person> listPersons) {
+
+    return listPersons.stream()
+        .sorted(Comparator.comparing(Person::getName))
+        .collect(Collectors.toList());
+
   }
 
   public static List<Person> sortAge(List<Person> listPersons) {
