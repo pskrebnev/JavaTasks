@@ -3,6 +3,7 @@ package org.tasks.execution;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -10,6 +11,7 @@ import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 // Tasks from 'Java 21, Java 17, Java 11 and Advanced Java 8' training (on Udemy)
 // link: https://luxoft.udemy.com/course/ocp11_from_oca8/
@@ -17,6 +19,7 @@ public class LambdasAndMethodReferences {
 
   public static void main(String[] args) {
     List<Person> listPeople = getPeople();
+    sortAge(listPeople).forEach(System.out::println);
 
 //    consumer();
 //    supplier();
@@ -26,6 +29,14 @@ public class LambdasAndMethodReferences {
 //    boundMR();
 //    unboundMR();
 //    constructorMR();
+  }
+
+  public static List<Person> sortAge(List<Person> listPersons) {
+
+    return listPersons.stream()
+        .sorted(Comparator.comparing(Person::getAge))
+        .collect(Collectors.toList());
+
   }
 
   public static void supplier() {
