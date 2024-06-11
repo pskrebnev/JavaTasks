@@ -36,27 +36,36 @@ public class LambdasAndMethodReferences {
   }
 
   public static List<Person> sortHeight(List<Person> listPersons) {
+    Comparator<Person> heightComparator = Comparator.comparing(Person::getHeight);
 
-    return listPersons.stream()
-        .sorted(Comparator.comparing(Person::getHeight))
-        .collect(Collectors.toList());
+//    return listPersons.stream()
+//        .sorted(Comparator.comparing(Person::getHeight))
+//        .collect(Collectors.toList());
 
+    listPersons.sort(heightComparator);
+    return listPersons;
   }
 
   public static List<Person> sortName(List<Person> listPersons) {
+    Comparator<Person> nameComparator = Comparator.comparing(Person::getName);
 
-    return listPersons.stream()
-        .sorted(Comparator.comparing(Person::getName))
-        .collect(Collectors.toList());
+//    return listPersons.stream()
+//        .sorted(Comparator.comparing(Person::getName))
+//        .collect(Collectors.toList());
 
+    listPersons.sort(nameComparator);
+    return listPersons;
   }
 
   public static List<Person> sortAge(List<Person> listPersons) {
+    Comparator<Person> ageComparator = Comparator.comparing(Person::getAge);
 
-    return listPersons.stream()
-        .sorted(Comparator.comparing(Person::getAge))
-        .collect(Collectors.toList());
+//    return listPersons.stream()
+//        .sorted(Comparator.comparing(Person::getAge))
+//        .collect(Collectors.toList());
 
+    listPersons.sort(ageComparator);
+    return listPersons;
   }
 
   public static void supplier() {
@@ -114,7 +123,9 @@ public class LambdasAndMethodReferences {
 
   public static void consumer() {
     Printable<String> printableLambda = s -> System.out.println(s);
+    Printable<String> printableMR = System.out::println;
     printableLambda.print("Printable lambda");
+    printableMR.print("Printable method reference");
   }
 
   public static void staticMR() {
