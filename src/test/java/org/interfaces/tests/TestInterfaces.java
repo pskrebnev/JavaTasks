@@ -1,10 +1,50 @@
 package org.interfaces.tests;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.function.IntPredicate;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.interfaces.lambda.Evaluate;
 import org.junit.jupiter.api.Test;
 
 public class TestInterfaces {
+
+  String txt = "Instead of starting with SELECT, a DQL query starts with a word determining the"
+      + " Query Type, which determines how your final result will be rendered on screen (a table,"
+      + " a list, a task list, or a calendar). Then follows the list of fields, which is actually"
+      + " very similar to the column list you put after a SELECT statement.\n"
+      + "\n"
+      + "The next line starts with FROM which is not followed by a table name but by a complex"
+      + " expression, similar to an SQL WHERE clause. Here you can filter on many things, like"
+      + " tags in files, file names, path names, etc. In the background, this command already"
+      + " produces a result set which will be our initial set for further data manipulation by"
+      + " 'data commands' on subsequent lines.\n"
+      + "\n"
+      + "You can have as many following lines as you want. Each will start with a data command"
+      + " and will re-shape the result set it received from the previous line. For example:\n"
+      + "\n"
+      + "The WHERE data command will only keep those lines from the result set which match a"
+      + " given condition. This means that, unless all data in the result set matches the"
+      + " condition, this command will pass on a smaller result set to the next line than it"
+      + " received from the previous line. Unlike in SQL, you can have as many WHERE"
+      + " commands as you like.\n"
+      + "The FLATTEN data command is not found in common SQL but in DQL you can use it to"
+      + " reduce the depth of the result set.\n"
+      + "DQL, similarly to SQL, has a GROUP BY command but this can also be used multiple"
+      + " times, which is not possible in common SQL. You can even do several SORT or GROUP BY"
+      + " commands one after the other.";
 
   @Test
   public void testInterfaceNegative() {
@@ -16,6 +56,32 @@ public class TestInterfaces {
     System.out.println("Number 5 is more than 4 = " + moreThanFour.test(5));
   }
 
+  @Test
+  public void testFindLargest() {
 
+    String finalText = keepOnlyWords(txt).chars()
+        .mapToObj(c -> (char) c)
+        .map(String::valueOf)
+        .collect(Collectors.joining());
 
+    Arrays.stream(finalText.split(" "))
+        .collect(Collectors.toMap(
+            Function.identity(),
+            String::length,
+            (oldValue, newValue) -> oldValue, LinkedHashMap::new
+        ))
+        .entrySet().stream()
+        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+        .limit(20)
+        .forEach(System.out::println);
+  }
+
+  private String keepOnlyWords(String input) {
+    return Pattern.compile("[^a-zA-Z]")
+        .matcher(input)
+        .replaceAll(" ")
+        .trim()
+        .replaceAll(" +", " ")
+        .toLowerCase();
+  }
 }
