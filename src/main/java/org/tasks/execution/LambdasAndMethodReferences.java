@@ -22,15 +22,25 @@ public class LambdasAndMethodReferences {
     sortAge(listPeople).forEach(System.out::println);
     System.out.println("<===>");
     sortName(listPeople).forEach(System.out::println);
+    System.out.println("<===>");
+    sortHeight(listPeople).forEach(System.out::println);
 
-//    consumer();
-//    supplier();
-//    predicate();
-//    function();
-//    staticMR();
-//    boundMR();
-//    unboundMR();
-//    constructorMR();
+    consumer();
+    supplier();
+    predicate();
+    function();
+    staticMR();
+    boundMR();
+    unboundMR();
+    constructorMR();
+  }
+
+  public static List<Person> sortHeight(List<Person> listPersons) {
+
+    return listPersons.stream()
+        .sorted(Comparator.comparing(Person::getHeight))
+        .collect(Collectors.toList());
+
   }
 
   public static List<Person> sortName(List<Person> listPersons) {
@@ -205,4 +215,5 @@ public class LambdasAndMethodReferences {
     result.add(new Person("Zoe", 30, 1.5));
     return result;
   }
+
 }
