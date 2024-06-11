@@ -25,7 +25,6 @@ public class Section1Tasks {
     supplier();
     predicate();
     function();
-    boundMR();
     unboundMR();
     constructorMR();
   }
@@ -121,22 +120,6 @@ public class Section1Tasks {
     Printable<String> printableMR = System.out::println;
     printableLambda.print("Printable lambda");
     printableMR.print("Printable method reference");
-  }
-
-
-  public static void boundMR() {
-
-    String name = "Mr. Joe Bloggs";
-
-    Predicate<String> isStartedWithLambda = pre -> name.startsWith(pre);
-
-    System.out.println("Started with ? 'Mr.' = " + isStartedWithLambda.test("Mr."));
-    System.out.println("Started with ? 'Ms.' = " + isStartedWithLambda.test("Ms."));
-
-    Predicate<String> isStartedWithMR = name::startsWith;
-
-    System.out.println("Started with ? 'Mr.' = " + isStartedWithMR.test("Mr."));
-    System.out.println("Started with ? 'Ms.' = " + isStartedWithMR.test("Ms."));
   }
 
   public static void unboundMR() {

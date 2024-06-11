@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class LambdasAndMethodReferences {
 
@@ -15,6 +16,7 @@ public class LambdasAndMethodReferences {
     staticMR();
   }
 
+  // Task #1
   public static void staticMR() {
     Comparator<Integer> intComparatorAsc = Integer::compare;
     Comparator<Integer> intComparatorDesc = Comparator.reverseOrder();
@@ -39,6 +41,22 @@ public class LambdasAndMethodReferences {
     Collections.shuffle(listInt);
     System.out.println("After sorting Asc. List+Comparator: " + sort(listInt, intComparatorAsc));
     System.out.println("After sorting Desc. List+Comparator: " + sort(listInt, intComparatorDesc));
+  }
+
+  // Task #2
+  public static void boundMR() {
+
+    String name = "Mr. Joe Bloggs";
+
+    Predicate<String> isStartedWithLambda = pre -> name.startsWith(pre);
+
+    System.out.println("Started with ? 'Mr.' = " + isStartedWithLambda.test("Mr."));
+    System.out.println("Started with ? 'Ms.' = " + isStartedWithLambda.test("Ms."));
+
+    Predicate<String> isStartedWithMR = name::startsWith;
+
+    System.out.println("Started with ? 'Mr.' = " + isStartedWithMR.test("Mr."));
+    System.out.println("Started with ? 'Ms.' = " + isStartedWithMR.test("Ms."));
   }
 
   private static List<Integer> sort(List<Integer> list
