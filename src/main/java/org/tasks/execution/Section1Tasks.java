@@ -3,7 +3,6 @@ package org.tasks.execution;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
@@ -25,7 +24,6 @@ public class Section1Tasks {
     supplier();
     predicate();
     function();
-    unboundMR();
     constructorMR();
   }
 
@@ -120,32 +118,6 @@ public class Section1Tasks {
     Printable<String> printableMR = System.out::println;
     printableLambda.print("Printable lambda");
     printableMR.print("Printable method reference");
-  }
-
-  public static void unboundMR() {
-    String pre1 = "Mr.";
-    String pre2 = "Ms.";
-    String name = "Mr. Joe Bloggs";
-
-    Predicate<String> isEmptyLambda = s -> s.isEmpty();
-
-    System.out.println("Text empty? = " + isEmptyLambda.test(""));
-    System.out.println("Text empty? = " + isEmptyLambda.test("xyz"));
-
-    Predicate<String> isEmptyMR = String::isEmpty;
-
-    System.out.println("Text empty? = " + isEmptyMR.test(""));
-    System.out.println("Text empty? = " + isEmptyMR.test("xyz"));
-
-    BiPredicate<String, String> startsWithLambda = (s1, s2) -> s1.startsWith(s2);
-
-    System.out.println("Is started? (L) = " + startsWithLambda.test(name, pre1));
-    System.out.println("Is started? (L) = " + startsWithLambda.test(name, pre2));
-
-    BiPredicate<String, String> startsWithMR = String::startsWith;
-
-    System.out.println("Is started? (MR) = " + startsWithMR.test(name, pre1));
-    System.out.println("Is started? (MR) = " + startsWithMR.test(name, pre2));
   }
 
   public static void constructorMR() {
