@@ -77,5 +77,16 @@ public class StreamAssignment {
         .reduce(Integer.MIN_VALUE, Math::max));
   }
 
+  // QID 2.1826, task #5
+  public static Optional<String> getGrade(int marks) {
+
+    Optional<String> grade = Optional.empty();
+
+    return null;
+
+  }
+
+
+
 
 }
