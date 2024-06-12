@@ -53,7 +53,8 @@ public class TestInterfaces {
     // Map<String, Long> where
     // String is a 'word'
     // and Long is a 'length' of the word
-    // long words on a top
+    // long words on a top. For ex.:
+    // Map('manipulation'=12, 'determining'=11)
     Arrays.stream(keepOnlyWords(txt).split(" "))
         .collect(Collectors.toMap(
             Function.identity(),
