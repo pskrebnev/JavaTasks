@@ -1,21 +1,13 @@
 package org.interfaces.tests;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.interfaces.lambda.Evaluate;
 import org.junit.jupiter.api.Test;
 
@@ -58,13 +50,12 @@ public class TestInterfaces {
 
   @Test
   public void testFindLargest() {
-
-    String finalText = keepOnlyWords(txt).chars()
-        .mapToObj(c -> (char) c)
-        .map(String::valueOf)
-        .collect(Collectors.joining());
-
-    Arrays.stream(finalText.split(" "))
+    // Map<String, Long> where
+    // String is a 'word'
+    // and Long is a 'length' of the word
+    // long words on a top. For ex.:
+    // Map('manipulation'=12, 'determining'=11)
+    Arrays.stream(keepOnlyWords(txt).split(" "))
         .collect(Collectors.toMap(
             Function.identity(),
             String::length,
@@ -76,6 +67,25 @@ public class TestInterfaces {
         .forEach(System.out::println);
   }
 
+  @Test
+  public void testCountLength() {
+    // count the length of words and their appearing in text
+    // for example: words with length of 4 appear 6 times in this text
+    // Map<4, 6>
+    // sorted by key
+    Arrays.stream(keepOnlyWords(txt).split(" "))
+        .map(String::length)
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        ))
+        .entrySet()
+        .stream()
+        .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+        .forEach(System.out::println);
+  }
+
+  // clear text and leave just words in lower case
   private String keepOnlyWords(String input) {
     return Pattern.compile("[^a-zA-Z]")
         .matcher(input)
