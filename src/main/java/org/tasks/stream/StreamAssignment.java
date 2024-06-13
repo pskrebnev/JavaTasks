@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -15,7 +16,21 @@ public class StreamAssignment {
 //    task01();
 //    task02();
 //    task03();
-    task04();
+//    task04();
+
+//    Optional<String> grade1 = getGrade(50);
+//    Optional<String> grade2 = getGrade(55);
+//    Consumer<String> cons = System.out::println;
+//
+//    System.out.println(grade1.orElse("UNKNOWN"));
+//    if (grade2.isPresent()) {
+//      grade2.ifPresent(cons);
+//    } else {
+//      grade2.orElse("Empty");
+//    }
+
+//    task06();
+    task07();
   }
 
   // QID 2.2023
@@ -82,11 +97,51 @@ public class StreamAssignment {
 
     Optional<String> grade = Optional.empty();
 
-    return null;
+    if (marks > 50) {
+      grade = Optional.of("PASS");
+    } else {
+      grade.of("FAIL");
+    }
 
+    return grade;
   }
 
+  // QID 2.1809
+  private static void task06() {
+    List<Book> books = Arrays.asList(
+        new Book("Thinking in Java", 30.0),
+        new Book("Java in 24 hrs", 20.0),
+        new Book("Java Recipes", 10.0)
+    );
 
+    Predicate<Book> price10 = book -> book.getPrice() > 10;
+    Predicate<Book> price90 = book -> book.getPrice() > 90;
+
+    double pr = books.stream()
+        .filter(price90)
+        .mapToDouble(Book::getPrice)
+        .average()
+        .orElse(0.00);
+
+    System.out.println("The avg price of books = " + pr);
+  }
+
+  private static void task07() {
+    List<Book> books = Arrays.asList(
+        new Book("Atlas Shrugged", 10.0),
+        new Book("Freedom at Midnight", 5.0),
+        new Book("Gone with the wind", 5.0)
+    );
+
+    books.stream()
+        .collect(Collectors.toMap(
+            Book::getTitle,
+            Book::getPrice
+        ))
+        .entrySet().stream()
+        .filter(book -> book.getKey().startsWith("A"))
+        .forEach(book -> System.out.println("The price for book = " + book.getValue()));
+  }
 
 
 }
