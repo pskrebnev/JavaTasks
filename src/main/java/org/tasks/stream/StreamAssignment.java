@@ -3,8 +3,11 @@ package org.tasks.stream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -30,7 +33,8 @@ public class StreamAssignment {
 //    }
 
 //    task06();
-    task07();
+//    task07();
+    task08();
   }
 
   // QID 2.2023
@@ -126,6 +130,7 @@ public class StreamAssignment {
     System.out.println("The avg price of books = " + pr);
   }
 
+  // QID 2.1846
   private static void task07() {
     List<Book> books = Arrays.asList(
         new Book("Atlas Shrugged", 10.0),
@@ -133,15 +138,47 @@ public class StreamAssignment {
         new Book("Gone with the wind", 5.0)
     );
 
+    Predicate<Entry<String, Double>> startWith = book -> book.getKey().startsWith("A");
+
     books.stream()
         .collect(Collectors.toMap(
             Book::getTitle,
             Book::getPrice
         ))
         .entrySet().stream()
-        .filter(book -> book.getKey().startsWith("A"))
-        .forEach(book -> System.out.println("The price for book = " + book.getValue()));
+        .filter(startWith)
+        .forEach(book -> System.out.println("The price for books started with 'A' = "
+            + book.getValue()));
   }
 
+  // QID 2.1847
+  private static void task08() {
+    List<Book> books = Arrays.asList(
+        new Book("Gone with the wind", 5.0),
+        new Book("Gone with the wind", 10.0),
+        new Book("Atlas Shrugged", 15.0)
+    );
+
+//    books.stream()
+//        .collect(Collectors.toMap(
+//            Book::getTitle,
+//            Book::getPrice,
+//            Double::sum, LinkedHashMap::new
+//        ))
+//        .entrySet()
+//        .forEach(System.out::println);
+
+    books.stream()
+        .collect(Collectors.toMap(
+            book -> book.getTitle() + ":" + book.getPrice(),
+            Function.identity(),
+            (existing, newValue) -> existing,
+            LinkedHashMap::new
+        ))
+        .entrySet()
+        .forEach(System.out::println);
+  }
 
 }
+
+
