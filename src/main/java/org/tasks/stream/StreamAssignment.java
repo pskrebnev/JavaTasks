@@ -8,6 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 import java.util.function.DoublePredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -19,30 +21,31 @@ import java.util.stream.Stream;
 public class StreamAssignment {
 
   public static void main(String[] args) {
-//    task01();
-//    task02();
-//    task03();
-//    task04();
+    task01();
+    task02();
+    task03();
+    task04();
 
-//    Optional<String> grade1 = getGrade(50);
-//    Optional<String> grade2 = getGrade(55);
-//    Consumer<String> cons = System.out::println;
-//
-//    System.out.println(grade1.orElse("UNKNOWN"));
-//    if (grade2.isPresent()) {
-//      grade2.ifPresent(cons);
-//    } else {
-//      grade2.orElse("Empty");
-//    }
+    Optional<String> grade1 = getGrade(50);
+    Optional<String> grade2 = getGrade(55);
+    Consumer<String> cons = System.out::println;
 
-//    task06();
-//    task07();
-//    task08();
-//    task09();
-//    task10();
-//    task11();
-//    task12();
+    System.out.println(grade1.orElse("UNKNOWN"));
+    if (grade2.isPresent()) {
+      grade2.ifPresent(cons);
+    } else {
+      grade2.orElse("Empty");
+    }
+
+    task06();
+    task07();
+    task08();
+    task09();
+    task10();
+    task11();
+    task12();
     task13();
+    task14();
   }
 
   // QID 2.2023
@@ -274,13 +277,9 @@ public class StreamAssignment {
     Predicate<Integer> is11 = x -> x == 11;
     Predicate<Integer> mod11 = x -> x % 11 > 0;
 
-
-    ls.stream()
-        .distinct()
-        .forEach(System.out::println);
-
     boolean find11 = ls.stream()
         .distinct()
+//        .peek(System.out::println)
         .anyMatch(is11);
 
     System.out.println("Is list contain 11? -> " + find11);
@@ -290,6 +289,32 @@ public class StreamAssignment {
     System.out.println("Is divided by 11? -> " + b11);
   }
 
+  // QID 2.1840
+  private static void task14() {
+    // a)
+    AtomicInteger ai = new AtomicInteger();
+    Stream.of(11, 11, 22, 33)
+        .parallel()
+        .filter(n -> {
+          ai.incrementAndGet();
+          return n % 2 == 0;
+        });
+//        .count();
+    System.out.println(ai); // "0" because the stream is lazy
+
+    // b)
+    Stream<Integer> stream = Stream.of(11, 11, 22, 33).parallel();
+    stream.filter(e -> {
+          ai.incrementAndGet();
+          return e % 2 == 0;
+        })
+        .forEach(System.out::println);
+
+    // IllegalStateException
+    // stream has already been used,
+//    stream.forEach(System.out::println);
+    System.out.println(ai);
+  }
 }
 
 
