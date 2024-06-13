@@ -1,5 +1,6 @@
 package org.tasks.stream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -36,7 +37,8 @@ public class StreamAssignment {
 //    task07();
 //    task08();
 //    task09();
-    task10();
+//    task10();
+    task11();
 
   }
 
@@ -224,7 +226,20 @@ public class StreamAssignment {
 
   // QID 2.1858
   private static void task11() {
+    List<AnotherBook> books = Arrays.asList(
+        new AnotherBook("Gone with the wind", "Fiction"),
+        new AnotherBook("Bourne Ultimatum", "Thriller"),
+        new AnotherBook("The Client", "Thriller")
+    );
 
+    List<String> genreList = new ArrayList<>();
+
+    books.stream()
+        .forEach(book -> {
+          genreList.add(book.getGenre());
+        });
+
+    genreList.forEach(System.out::println);
   }
 
 }
