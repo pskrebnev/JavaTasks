@@ -41,8 +41,8 @@ public class StreamAssignment {
 //    task09();
 //    task10();
 //    task11();
-    task12();
-
+//    task12();
+    task13();
   }
 
   // QID 2.2023
@@ -265,6 +265,29 @@ public class StreamAssignment {
         .orElse(0.00);
 
     System.out.println("The average is: " + dd);
+  }
+
+  // QID 2.1840
+  private static void task13() {
+    // a)
+    List<Integer> ls = Arrays.asList(11, 11, 22, 33, 33, 55, 66);
+    Predicate<Integer> is11 = x -> x == 11;
+    Predicate<Integer> mod11 = x -> x % 11 > 0;
+
+
+    ls.stream()
+        .distinct()
+        .forEach(System.out::println);
+
+    boolean find11 = ls.stream()
+        .distinct()
+        .anyMatch(is11);
+
+    System.out.println("Is list contain 11? -> " + find11);
+
+    boolean b11 = ls.stream()
+        .noneMatch(mod11);
+    System.out.println("Is divided by 11? -> " + b11);
   }
 
 }
