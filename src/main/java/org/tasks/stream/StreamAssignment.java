@@ -8,9 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.DoublePredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -38,7 +40,8 @@ public class StreamAssignment {
 //    task08();
 //    task09();
 //    task10();
-    task11();
+//    task11();
+    task12();
 
   }
 
@@ -240,6 +243,28 @@ public class StreamAssignment {
         });
 
     genreList.forEach(System.out::println);
+  }
+
+  // QID 2.2024
+  private static void task12() {
+    // a)
+    DoublePredicate isOdd = x -> x % 2 != 0;
+    DoublePredicate isEven = x -> x % 2 == 0;
+
+    double s = DoubleStream.of(0, 2, 4)
+        .filter(isOdd)
+        .sum();
+
+    System.out.println("Sum is: " + s);
+
+    // b)
+    Stream<Double> dbl = Stream.of(1.0, 3.0);
+    double dd = dbl.mapToDouble(x -> (double) x)
+        .filter(isEven)
+        .average()
+        .orElse(0.00);
+
+    System.out.println("The average is: " + dd);
   }
 
 }
