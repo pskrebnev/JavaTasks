@@ -11,6 +11,11 @@ class Person {
     this.age = age;
   }
 
+  Person(String firstName, int age) {
+    this.firstName = firstName;
+    this.age = age;
+  }
+
   public String getFirstName() {
     return firstName;
   }

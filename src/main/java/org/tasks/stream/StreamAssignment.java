@@ -34,7 +34,9 @@ public class StreamAssignment {
 
 //    task06();
 //    task07();
-    task08();
+//    task08();
+    task09();
+
   }
 
   // QID 2.2023
@@ -177,6 +179,25 @@ public class StreamAssignment {
         ))
         .entrySet()
         .forEach(System.out::println);
+  }
+
+  // QID 2.1810
+  private static void task09() {
+    List<Person> persons = Arrays.asList(
+        new Person("Bob", 31),
+        new Person("Paul", 32),
+        new Person("John", 33)
+    );
+
+    Predicate<Person> pAge = person -> person.getAge() < 30;
+
+    double averageAge = persons.stream()
+        .filter(pAge)
+        .mapToInt(Person::getAge)
+        .average()
+        .orElse(0.00);
+
+    System.out.println("The average age is " + averageAge);
   }
 
 }
