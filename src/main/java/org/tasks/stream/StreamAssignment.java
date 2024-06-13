@@ -1,36 +1,51 @@
 package org.tasks.stream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.DoublePredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamAssignment {
 
   public static void main(String[] args) {
-//    task01();
-//    task02();
-//    task03();
-//    task04();
+    task01();
+    task02();
+    task03();
+    task04();
 
-//    Optional<String> grade1 = getGrade(50);
-//    Optional<String> grade2 = getGrade(55);
-//    Consumer<String> cons = System.out::println;
-//
-//    System.out.println(grade1.orElse("UNKNOWN"));
-//    if (grade2.isPresent()) {
-//      grade2.ifPresent(cons);
-//    } else {
-//      grade2.orElse("Empty");
-//    }
+    Optional<String> grade1 = getGrade(50);
+    Optional<String> grade2 = getGrade(55);
+    Consumer<String> cons = System.out::println;
 
-//    task06();
+    System.out.println(grade1.orElse("UNKNOWN"));
+    if (grade2.isPresent()) {
+      grade2.ifPresent(cons);
+    } else {
+      grade2.orElse("Empty");
+    }
+
+    task06();
     task07();
+    task08();
+    task09();
+    task10();
+    task11();
+    task12();
+    task13();
+    task14();
   }
 
   // QID 2.2023
@@ -126,6 +141,7 @@ public class StreamAssignment {
     System.out.println("The avg price of books = " + pr);
   }
 
+  // QID 2.1846
   private static void task07() {
     List<Book> books = Arrays.asList(
         new Book("Atlas Shrugged", 10.0),
@@ -133,15 +149,172 @@ public class StreamAssignment {
         new Book("Gone with the wind", 5.0)
     );
 
+    Predicate<Entry<String, Double>> startWith = book -> book.getKey().startsWith("A");
+
     books.stream()
         .collect(Collectors.toMap(
             Book::getTitle,
             Book::getPrice
         ))
         .entrySet().stream()
-        .filter(book -> book.getKey().startsWith("A"))
-        .forEach(book -> System.out.println("The price for book = " + book.getValue()));
+        .filter(startWith)
+        .forEach(book -> System.out.println("The price for books started with 'A' = "
+            + book.getValue()));
   }
 
+  // QID 2.1847
+  private static void task08() {
+    List<Book> books = Arrays.asList(
+        new Book("Gone with the wind", 5.0),
+        new Book("Gone with the wind", 10.0),
+        new Book("Atlas Shrugged", 15.0)
+    );
 
+//    books.stream()
+//        .collect(Collectors.toMap(
+//            Book::getTitle,
+//            Book::getPrice,
+//            Double::sum, LinkedHashMap::new
+//        ))
+//        .entrySet()
+//        .forEach(System.out::println);
+
+    books.stream()
+        .collect(Collectors.toMap(
+            book -> book.getTitle() + ":" + book.getPrice(),
+            Function.identity(),
+            (existing, newValue) -> existing,
+            LinkedHashMap::new
+        ))
+        .entrySet()
+        .forEach(System.out::println);
+  }
+
+  // QID 2.1810
+  private static void task09() {
+    List<Person> persons = Arrays.asList(
+        new Person("Bob", 31),
+        new Person("Paul", 32),
+        new Person("John", 33)
+    );
+
+    Predicate<Person> pAge = person -> person.getAge() < 30;
+
+    double averageAge = persons.stream()
+        .filter(pAge)
+        .mapToInt(Person::getAge)
+        .average()
+        .orElse(0.00);
+
+    System.out.println("The average age is " + averageAge);
+  }
+
+  // QID 2.1849
+  private static void task10() {
+    Optional<Double> price = Optional.ofNullable(20.0);
+    price.ifPresent(y -> System.out.println("1.Price is: " + y));
+    System.out.println("2.Price is: " + price.orElse(0.00));
+    System.out.println("3.Price is: " + price.orElseGet(() -> null));
+
+    System.out.println("<--->");
+
+    Optional<Double> price2 = Optional.ofNullable(null);
+    System.out.println("1.Price is: " + price2);
+    System.out.println("2.Price is: " + (price2.isEmpty() ? "empty" : 20.00));
+    price2.ifPresent(y -> System.out.println("3.Price is: " + y));
+    Double pr = price2.orElse(44.0);
+    System.out.println("4.Price is: " + pr);
+
+    Optional<Double> price3 = Optional.ofNullable(null);
+    Double z = price3.orElseThrow(() -> new RuntimeException("Bad Code"));
+    System.out.println("5. Price is: " + z); // RuntimeException thrown
+  }
+
+  // QID 2.1858
+  private static void task11() {
+    List<AnotherBook> books = Arrays.asList(
+        new AnotherBook("Gone with the wind", "Fiction"),
+        new AnotherBook("Bourne Ultimatum", "Thriller"),
+        new AnotherBook("The Client", "Thriller")
+    );
+
+    List<String> genreList = new ArrayList<>();
+
+    books.stream()
+        .forEach(book -> {
+          genreList.add(book.getGenre());
+        });
+
+    genreList.forEach(System.out::println);
+  }
+
+  // QID 2.2024
+  private static void task12() {
+    // a)
+    DoublePredicate isOdd = x -> x % 2 != 0;
+    DoublePredicate isEven = x -> x % 2 == 0;
+
+    double s = DoubleStream.of(0, 2, 4)
+        .filter(isOdd)
+        .sum();
+
+    System.out.println("Sum is: " + s);
+
+    // b)
+    Stream<Double> dbl = Stream.of(1.0, 3.0);
+    double dd = dbl.mapToDouble(x -> (double) x)
+        .filter(isEven)
+        .average()
+        .orElse(0.00);
+
+    System.out.println("The average is: " + dd);
+  }
+
+  // QID 2.1840
+  private static void task13() {
+    // a)
+    List<Integer> ls = Arrays.asList(11, 11, 22, 33, 33, 55, 66);
+    Predicate<Integer> is11 = x -> x == 11;
+    Predicate<Integer> mod11 = x -> x % 11 > 0;
+
+    boolean find11 = ls.stream()
+        .distinct()
+//        .peek(System.out::println)
+        .anyMatch(is11);
+
+    System.out.println("Is list contain 11? -> " + find11);
+
+    boolean b11 = ls.stream()
+        .noneMatch(mod11);
+    System.out.println("Is divided by 11? -> " + b11);
+  }
+
+  // QID 2.1840
+  private static void task14() {
+    // a)
+    AtomicInteger ai = new AtomicInteger();
+    Stream.of(11, 11, 22, 33)
+        .parallel()
+        .filter(n -> {
+          ai.incrementAndGet();
+          return n % 2 == 0;
+        });
+//        .count();
+    System.out.println(ai); // "0" because the stream is lazy
+
+    // b)
+    Stream<Integer> stream = Stream.of(11, 11, 22, 33).parallel();
+    stream.filter(e -> {
+          ai.incrementAndGet();
+          return e % 2 == 0;
+        })
+        .forEach(System.out::println);
+
+    // IllegalStateException
+    // stream has already been used,
+//    stream.forEach(System.out::println);
+    System.out.println(ai);
+  }
 }
+
+
