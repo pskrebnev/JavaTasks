@@ -35,7 +35,8 @@ public class StreamAssignment {
 //    task06();
 //    task07();
 //    task08();
-    task09();
+//    task09();
+    task10();
 
   }
 
@@ -198,6 +199,32 @@ public class StreamAssignment {
         .orElse(0.00);
 
     System.out.println("The average age is " + averageAge);
+  }
+
+  // QID 2.1849
+  private static void task10() {
+    Optional<Double> price = Optional.ofNullable(20.0);
+    price.ifPresent(y -> System.out.println("1.Price is: " + y));
+    System.out.println("2.Price is: " + price.orElse(0.00));
+    System.out.println("3.Price is: " + price.orElseGet(() -> null));
+
+    System.out.println("<--->");
+
+    Optional<Double> price2 = Optional.ofNullable(null);
+    System.out.println("1.Price is: " + price2);
+    System.out.println("2.Price is: " + (price2.isEmpty() ? "empty" : 20.00));
+    price2.ifPresent(y -> System.out.println("3.Price is: " + y));
+    Double pr = price2.orElse(44.0);
+    System.out.println("4.Price is: " + pr);
+
+    Optional<Double> price3 = Optional.ofNullable(null);
+    Double z = price3.orElseThrow(() -> new RuntimeException("Bad Code"));
+    System.out.println("5. Price is: " + z); // RuntimeException thrown
+  }
+
+  // QID 2.1858
+  private static void task11() {
+
   }
 
 }
