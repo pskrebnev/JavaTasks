@@ -1,0 +1,7 @@
+The First Normal Form – 1NF
+For a table to be in the first normal form, it must meet the following criteria:
+
+a single cell must not hold more than one value (atomicity)
+there must be a primary key for identification
+no duplicated rows or columns
+each column must have only one value for each row in the table
