@@ -44,16 +44,16 @@ public class CommonBuiltInAnnotationsExtra {
     //    abuseVarargs(new ArrayList<>());  
   }
 
-  @SuppressWarnings("deprecation")
-  public void testDeprecated() {
-    Book.print();
-  }
+//  @SuppressWarnings("deprecation")
+//  public void testDeprecated() {
+//    Book.print();
+//  }
 
-  @SuppressWarnings("unchecked")    // ignore warnings relating to the use of 'raw types'
-  public void testUnchecked() {
-    Book.preview(new ArrayList<>());
-    //       Book.preview(new ArrayList());// this is a raw type - "new ArrayList<String>()" would be better
-  }
+//  @SuppressWarnings("unchecked")    // ignore warnings relating to the use of 'raw types'
+//  public void testUnchecked() {
+//    Book.preview(new ArrayList<>());
+//    //       Book.preview(new ArrayList());// this is a raw type - "new ArrayList<String>()" would be better
+//  }
 
   @SafeVarargs
   static int abuseVarargs(
