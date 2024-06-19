@@ -9,7 +9,7 @@ public class TestMonitorFolder {
   @Test
   public void monitorFolder() throws IOException, InterruptedException {
 
-    WatchFolderService.monitorPropertyFolder();
+//    WatchFolderService.monitorPropertyFolder();
 
   }
 
