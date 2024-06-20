@@ -7,6 +7,15 @@ public final class LecturerRecord {
   private final Faculty faculty;
   private final Department dept;
 
+  @Override
+  public String toString() {
+    return """
+        Name is %s
+        Age is %d
+        Faculty is %s
+        Department is %s""".formatted(name, age, faculty, dept);
+  }
+
   public LecturerRecord(
       String name
       , Integer age
