@@ -1,11 +1,10 @@
 package org.tasks.assignment;
 
-public final class LecturerRecord {
-
-  private final String name;
-  private final Integer age;
-  private final Faculty faculty;
-  private final Department dept;
+public record LecturerRecord(
+    String name
+    , Integer age
+    , Faculty faculty
+    , Department dept) {
 
   @Override
   public String toString() {
@@ -16,18 +15,16 @@ public final class LecturerRecord {
         Department is %s""".formatted(name, age, faculty, dept);
   }
 
-  public LecturerRecord(
-      String name
-      , Integer age
-      , Faculty faculty
-      , Department dept) {
+  public LecturerRecord {
     if (name.isBlank() || age < 0) {
-      throw new IllegalArgumentException(buildCustomMessage(name, age));
+      String errorMsg = """
+          Illegal argument passed:
+                 "name": %s,
+                 "age": %s
+          """.formatted(name, age);
+
+      throw new IllegalArgumentException("\n" + errorMsg);
     }
-    this.name = name;
-    this.age = age;
-    this.faculty = faculty;
-    this.dept = dept;
   }
 
   public boolean hasPhd() {
@@ -81,13 +78,5 @@ public final class LecturerRecord {
       }
       default -> throw new IllegalArgumentException("Invalid department: " + dept);
     }
-  }
-
-  private static String buildCustomMessage(String name, Integer age) {
-    return """
-        Illegal argument passed:
-        "name": %s,
-        "age": %s
-        """.formatted(name, age);
   }
 }
