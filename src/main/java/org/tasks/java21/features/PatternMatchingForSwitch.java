@@ -31,6 +31,7 @@ final class Train extends Vehicle {
 
 public class PatternMatchingForSwitch {
 
+/*
   public static void patternMatchingSwitch(Vehicle v) {
     System.out.println(
         switch (v) { // 'v' is the "selector expression"
@@ -56,7 +57,9 @@ public class PatternMatchingForSwitch {
         }
     );
   }
+*/
 
+/*
   public static void main(String[] args) {
     patternMatchingSwitch(new Car(2));
     patternMatchingSwitch(new Car(4));
@@ -65,4 +68,5 @@ public class PatternMatchingForSwitch {
     patternMatchingSwitch(null);
 
   }
+*/
 }
