@@ -14,16 +14,11 @@ public class University {
     seqSet();
     seqMap();
 
-//    recordPatterns(mikeRecord);
-
-    BusinessFaculty businessFaculty = new BusinessFaculty();
-    AccountingDept accountingDept = new AccountingDept();
-    LecturerRecord alanRecord = new LecturerRecord(
+    LecturerRecord alan = createRecord(
         "Alan Austin"
         , 64
-        , businessFaculty
-        , accountingDept);
-    recordPatterns(alanRecord);
+        , new BusinessFaculty()
+        , new AccountingDept());
   }
 
   private static LecturerRecord createRecord(
@@ -63,13 +58,4 @@ public class University {
     ageMap.put("Bob", 35);
     System.out.println("Sequential Map: " + ageMap);
   }
-
-  private static void recordPatterns(LecturerRecord record) {
-//    if (record.getAge() >= 60) {
-//
-//    } else {
-//      System.out.println("As he is only " + record.getAge() + ", nothing will be output.");
-//    }
-  }
-
 }
