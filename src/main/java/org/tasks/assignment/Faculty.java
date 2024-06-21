@@ -1,6 +1,12 @@
 package org.tasks.assignment;
 
-public abstract sealed class Faculty implements Educational
+
+sealed interface Educational permits Faculty {
+
+}
+
+public abstract sealed class Faculty
+    implements Educational
     permits EngineeringFaculty
     , HumanitiesFaculty
     , BusinessFaculty {
