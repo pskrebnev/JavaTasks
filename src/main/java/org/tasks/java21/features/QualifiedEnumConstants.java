@@ -14,10 +14,10 @@ public class QualifiedEnumConstants {
 //                System.out.println("Rainbow::Red"); break;
 
             // Java 21 specific
-            case Primary.RED:
-                System.out.println("Primary.Red"); break;
-            case Rainbow.RED:
-                System.out.println("Rainbow.Red"); break;
+//            case Primary.RED:
+//                System.out.println("Primary.Red"); break;
+//            case Rainbow.RED:
+//                System.out.println("Rainbow.Red"); break;
             default:
                 System.out.println("Other colour"); break;
         }
