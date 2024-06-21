@@ -6,6 +6,9 @@ import java.util.LinkedHashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+// After Java 17
+
+/*
     void main() {
 		System.out.println("SequencedCollection");
 		seqColl();
@@ -16,6 +19,9 @@ import java.util.Map;
 		System.out.println("SequencedMap");
 		seqMap();
 	}
+*/
+
+/*
 	void seqColl(){
         // A sequenced collection is a Collection whose elements have a defined encounter order.
         SequencedCollection<String> seqColl = new ArrayList<>();
@@ -44,6 +50,10 @@ import java.util.Map;
 		}
 
     }
+*/
+
+
+/*
 	void seqSet(){
 		// A sequenced set is a SequencedCollection with no duplicate elements.
 		SequencedSet<String> seqSet = new LinkedHashSet<>();
@@ -70,6 +80,10 @@ import java.util.Map;
 			System.out.println(s);
 		}
 	}
+*/
+
+
+/*
 	void seqMap(){
         // A sequenced map is a Map whose entries have a defined encounter order.
         SequencedMap<Integer, String> seqMap = new LinkedHashMap<>();
@@ -96,4 +110,4 @@ import java.util.Map;
 			System.out.println(entry.getKey() + "; " + entry.getValue());
 		}
 
-    }
+    }*/
