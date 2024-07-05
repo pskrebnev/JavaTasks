@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.manipulations.file.reading.ReadCsv;
@@ -137,7 +138,13 @@ public class TestFiles {
 
   @Test
   public void testCount() {
-    initStr.chars()
+    String str = Pattern.compile("[^a-zA-Z]")
+        .matcher(initStr)
+        .replaceAll(" ")
+        .toLowerCase()
+        .replaceAll(" +", " ");
+
+    str.chars()
         .mapToObj(c -> (char) c)
         .map(String::valueOf)
         .map(String::toLowerCase)
