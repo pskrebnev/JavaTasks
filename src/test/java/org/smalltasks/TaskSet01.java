@@ -5,9 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -74,12 +76,64 @@ public class TaskSet01 {
         .collect(Collectors.groupingBy(
             Function.identity(),
             Collectors.counting()
-        )).entrySet().stream()
-        .sorted(Map.Entry.comparingByValue(
-            Comparator.reverseOrder()
         ))
-        .forEach(entity -> System.out.println(entity.getKey() + " = " + entity.getValue()));
+        .entrySet().stream()
+        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+        .forEach(item -> System.out.println(item.getKey() + " = " + item.getValue()));
   }
+
+  // 5. You have a String. Count the length of words and sort it. Map<String, Long>
+  // 7. Filter words from a task 5 and print only > 6
+  @Test
+  public void task05() throws IOException {
+    Arrays.stream(cleanUpText(getTextFromFile(filePath1 + fileName1))
+            .split("\\s"))
+        .collect(Collectors.toMap(
+            word -> word,
+            word -> (long) word.length(),
+            (oldValue, newValue) -> oldValue, LinkedHashMap::new
+        ))
+        .entrySet().stream()
+        .filter(item -> item.getValue() > 8)
+        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+        .forEach(item -> System.out.println(item.getKey() + " = " + item.getValue()));
+  }
+
+  // 6. You have a String. Count the frequency of letters and sort in alphabet order. Map<String, Long>
+  @Test
+  public void task06() throws IOException {
+    String str = cleanUpText(getTextFromFile(filePath1 + fileName1));
+    Predicate<String> notSpace = c -> !c.equals(" ");
+
+    str.chars()
+        .mapToObj(c -> (char) c)
+        .map(String::valueOf)
+        .filter(notSpace)
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        ))
+        .entrySet().stream()
+        .sorted(Map.Entry.comparingByKey())
+        .forEach(item -> System.out.println(item.getKey() + " = " + item.getValue()));
+  }
+
+  // 8. Find occurrencies of a phrase in a String
+  @Test
+  public void task08() throws IOException {
+    String txt = cleanUpText(getTextFromFile(filePath1 + fileName1));
+    String txtToFind = "ic";
+
+    int count = txt.chars()
+        .mapToObj(c -> (char) c)
+        .map(String::valueOf)
+        .collect(Collectors.joining())
+        .split(txtToFind, -1)
+        .length - 1;
+
+    System.out.println("Text '" + txtToFind + "' appears " + count + " times.");
+  }
+
 
   private String cleanUpText(String s) {
     return Pattern.compile("[^a-zA-Z]")
@@ -88,6 +142,14 @@ public class TaskSet01 {
         .trim()
         .replaceAll(" +", " ")
         .toLowerCase();
+  }
+
+  private String getTextFromFile(String fullPathToText) throws IOException {
+
+    try (Stream<String> rows = Files.lines(Paths.get(fullPathToText))) {
+      return rows.collect(Collectors.joining());
+    }
+
   }
 
 
