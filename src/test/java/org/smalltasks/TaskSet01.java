@@ -149,8 +149,5 @@ public class TaskSet01 {
     try (Stream<String> rows = Files.lines(Paths.get(fullPathToText))) {
       return rows.collect(Collectors.joining());
     }
-
   }
-
-
 }
