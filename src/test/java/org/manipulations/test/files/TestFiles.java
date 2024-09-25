@@ -23,7 +23,7 @@ public class TestFiles {
       + ", eliminate duplicates, and organize data in a consistent way. In normalization"
       + ", the data is divided into several tables linked together with relationships."
       + "Database administrators are able to achieve these relationships by using primary keys"
-      + ", foreign keys, and composite keys."
+      + ", foreign keys, and composite keys. keKEkE"
       + "To get it done, a primary key in one table, for example, employee_wages is related"
       + " to the value from another table, for instance, employee_data.\n"
       + "N.B.: A primary key is a column that uniquely identifies the rows of data in that table."
