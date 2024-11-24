@@ -2,7 +2,6 @@ package org.tasks.collections;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -15,7 +14,7 @@ public class MapsForMaps {
   public static void mapsToMaps() {
     Map<String, Integer> channelToSubscribers = new TreeMap<>(); // channel, numSubscribers
     Map<String, String> channelToPublisher = new TreeMap<>(); // channel, publisher
-    Map<String, Integer> publisherToSubscribers = new TreeMap<>(); // publisher, numSubscribers
+//    Map<String, Integer> publisherToSubscribers = new TreeMap<>(); // publisher, numSubscribers
 
     // channel -> number of subscribers
     // K -> V1
@@ -35,7 +34,7 @@ public class MapsForMaps {
     // publisher -> number of subscribers (total)
     // V2 -> V1
     // 2. Output "publisherToSubscribers"
-    // 3. Who has the most/least subscribers?
+    // 3. Who has the most/the least subscribers?
     channelToPublisher.entrySet().stream()
         .collect(Collectors.toMap(
             Map.Entry::getValue,

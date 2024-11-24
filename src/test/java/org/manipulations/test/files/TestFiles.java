@@ -9,14 +9,26 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.junit.jupiter.api.Test;
 import org.manipulations.file.reading.ReadCsv;
 import org.manipulations.file.reading.ReadJson;
 import org.manipulations.file.reading.ReadTxtFile;
-import org.junit.jupiter.api.Test;
 import org.objects.game.UtilGames;
 
 public class TestFiles {
+
+  private String initStr = "The main purpose of database normalization is to avoid complexities"
+      + ", eliminate duplicates, and organize data in a consistent way. In normalization"
+      + ", the data is divided into several tables linked together with relationships."
+      + "Database administrators are able to achieve these relationships by using primary keys"
+      + ", foreign keys, and composite keys. keKEkE"
+      + "To get it done, a primary key in one table, for example, employee_wages is related"
+      + " to the value from another table, for instance, employee_data.\n"
+      + "N.B.: A primary key is a column that uniquely identifies the rows of data in that table."
+      + " It’s a unique identifier such as an employee ID, student ID"
+      + ", voter’s identification number (VIN), and so on.";
 
   @Test
   public void testReadingTxt() {
@@ -111,18 +123,7 @@ public class TestFiles {
   @Test
   public void testOccurrence() {
     // counting the occurrence of str in big string
-    String initStr = "The main purpose of database normalization is to avoid complexities"
-        + ", eliminate duplicates, and organize data in a consistent way. In normalization"
-        + ", the data is divided into several tables linked together with relationships."
-        + "Database administrators are able to achieve these relationships by using primary keys"
-        + ", foreign keys, and composite keys."
-        + "To get it done, a primary key in one table, for example, employee_wages is related"
-        + " to the value from another table, for instance, employee_data.\n"
-        + "N.B.: A primary key is a column that uniquely identifies the rows of data in that table."
-        + " It’s a unique identifier such as an employee ID, student ID"
-        + ", voter’s identification number (VIN), and so on.";
-
-    String toFind = "fi";
+    String toFind = "ke";
 
     int count = initStr.chars()
         .mapToObj(c -> (char) c)
@@ -132,6 +133,27 @@ public class TestFiles {
         .split(toFind, -1)
         .length - 1;
 
-    System.out.println(count);
+    System.out.println("Text '" + toFind + "' appears " + count + " times");
+  }
+
+  @Test
+  public void testCount() {
+    String str = Pattern.compile("[^a-zA-Z]")
+        .matcher(initStr)
+        .replaceAll(" ")
+        .toLowerCase()
+        .replaceAll(" +", " ");
+
+    str.chars()
+        .mapToObj(c -> (char) c)
+        .map(String::valueOf)
+        .map(String::toLowerCase)
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        ))
+        .entrySet().stream()
+        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+        .forEach(item -> System.out.println("'" + item.getKey() + "'" + " = " + item.getValue()));
   }
 }
