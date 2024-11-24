@@ -1,5 +1,6 @@
 package org.tasks.stream;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
@@ -12,8 +13,9 @@ public class ArrayComparison {
 
     // Method 1: Check which elements from array1 are present in array2
     System.out.println("Elements from array1 present in array2:");
+    Predicate<Integer> isContains = element -> Arrays.asList(array2).contains(element);
     Arrays.stream(array1)
-        .filter(element -> Arrays.asList(array2).contains(element))
+        .filter(isContains)
         .forEach(System.out::println);
 
     // Method 2: Check which elements from array1 are NOT present in array2
