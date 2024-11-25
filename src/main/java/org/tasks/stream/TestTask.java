@@ -1,28 +1,30 @@
 package org.tasks.stream;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class TestTask {
 
-  static String s = "huhbabadaadababhad";
+  static String s = "huhbabadaadababhadkhkjhkkjhiuyiuyihghfhfhfhfdtre";
+
   // "bab", "aba"
   public static void main(String[] args) {
-    String longestPalindrome = findLongestPalindrome(s);
-    System.out.println(longestPalindrome);
+    List<String> palindromes = findAllPalindromes(s);
+    palindromes.forEach(System.out::println);
   }
 
-  public static String findLongestPalindrome(String s) {
+  public static List<String> findAllPalindromes(String s) {
     return IntStream.range(0, s.length())
         .mapToObj(i ->
             IntStream.rangeClosed(0, s.length() - (i + 1))
                 .mapToObj(j -> s.substring(j, j + i + 1))
                 .filter(TestTask::isPalindrome)
-                .findFirst()
+                .filter(str -> str.length() > 2)
+                .distinct()
+                .toList()
         )
-        .flatMap(Optional::stream)
-        .reduce((first, second) -> second)
-        .orElse("");
+        .flatMap(List::stream)
+        .toList();
   }
 
   private static boolean isPalindrome(String str) {
