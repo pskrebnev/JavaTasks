@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -52,7 +53,7 @@ public class TaskSet01 {
       lst = rows.toList();
     }
 
-    lst.stream().forEach(System.out::println);
+    lst.forEach(System.out::println);
   }
 
   // 3. You have a String. Revert it
@@ -83,9 +84,11 @@ public class TaskSet01 {
   }
 
   // 5. You have a String. Count the length of words and sort it. Map<String, Long>
-  // 7. Filter words from a task 5 and print only > 6
+  // 7. Filter words from a task 5 and print only > 8
   @Test
   public void task05() throws IOException {
+    Predicate<Entry<String, Long>> more8 = item -> item.getValue() > 8;
+
     Arrays.stream(cleanUpText(getTextFromFile(filePath1 + fileName1))
             .split("\\s"))
         .collect(Collectors.toMap(
@@ -94,7 +97,7 @@ public class TaskSet01 {
             (oldValue, newValue) -> oldValue, LinkedHashMap::new
         ))
         .entrySet().stream()
-        .filter(item -> item.getValue() > 8)
+        .filter(more8)
         .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
         .forEach(item -> System.out.println(item.getKey() + " = " + item.getValue()));
   }
@@ -145,7 +148,6 @@ public class TaskSet01 {
   }
 
   private String getTextFromFile(String fullPathToText) throws IOException {
-
     try (Stream<String> rows = Files.lines(Paths.get(fullPathToText))) {
       return rows.collect(Collectors.joining());
     }
