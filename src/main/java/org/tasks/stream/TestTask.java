@@ -2,17 +2,36 @@ package org.tasks.stream;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TestTask {
 
   static String s = "huhbabadaadababhadkhkjhkkjhiuyiuyihghfhfhfhfdtre";
+  static String txt2 = "This     proposal sets         out to implement several kinds"
+      + " of Quantum Vision Transformers (QViT) for High Energy Physics (HEP)"
+      + " analysis at the Large Hadron Collider (LHC), inspired by the seminal"
+      + " work of Cherrat et al., which introduces three innovative quantum transformer"
+      + " architectures: Orthogonal Patch-wise Neural Network, Quantum Orthogonal Transformer,"
+      + " and Quantum Compound Transformer. Despite the groundbreaking nature of their"
+      + " research, the absence of released source code has left a significant gap"
+      + " in practical application and reproducibility. Furthermore, attempts by last"
+      + " year's contributors, Marçal Comajoan Cara and Eyup B. Unlu, to implement the"
+      + " Quantum Orthogonal Transformer faced challenges; Marçal encountered training"
+      + " issues due to NaN values, and Eyup's implementation did not proceed to the training"
+      + " phase of transformers, highlighting the difficulties in realizing these models. This"
+      + " project aims to address these gaps by developing QViT models within the TensorFlow"
+      + " Quantum framework, leveraging this technology to bridge theoretical insights with"
+      + " practical application, thereby marking a potential first in applying these models"
+      + " for the analysis of particle jet images in HEP.";
 
   // "bab", "aba"
   public static void main(String[] args) {
 //    List<String> palindromes = findPalindromesNO(s);
     List<String> palindromes = findAllPalindromes(s);
     palindromes.forEach(System.out::println);
+//    System.out.println(qtyAppearance(cleanUp(txt2), "rt"));
   }
 
   public static List<String> findAllPalindromes(String s) {
@@ -43,5 +62,22 @@ public class TestTask {
       }
     }
     return listPalindromes;
+  }
+
+  private static int qtyAppearance(String source, String txtToFind) {
+    return source.chars()
+        .mapToObj(s -> (char) s)
+        .map(String::valueOf)
+        .collect(Collectors.joining())
+        .split(txtToFind, -1)
+        .length - 1;
+  }
+
+  private static String cleanUp(String s) {
+    return Pattern.compile("[^a-zA-Z]")
+        .matcher(s)
+        .replaceAll(" ")
+        .replaceAll(" +", " ")
+        .toLowerCase();
   }
 }
