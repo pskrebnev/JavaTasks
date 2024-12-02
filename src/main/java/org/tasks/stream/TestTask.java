@@ -1,7 +1,10 @@
 package org.tasks.stream;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,9 +32,11 @@ public class TestTask {
   // "bab", "aba"
   public static void main(String[] args) {
 //    List<String> palindromes = findPalindromesNO(s);
-    List<String> palindromes = findAllPalindromes(s);
-    palindromes.forEach(System.out::println);
+//    List<String> palindromes = findAllPalindromes(s);
+//    palindromes.forEach(System.out::println);
 //    System.out.println(qtyAppearance(cleanUp(txt2), "rt"));
+    List<Integer> arr = Arrays.asList(1, 2, 1, 2, 1, 3, 3, 3, 3, 1, 2);
+    sockMerchant(arr).forEach((key, value) -> System.out.println(key + " = " + value));
   }
 
   public static List<String> findAllPalindromes(String s) {
@@ -62,6 +67,22 @@ public class TestTask {
       }
     }
     return listPalindromes;
+  }
+
+  public static Map<Integer, Integer> sockMerchant(List<Integer> arr) {
+    return arr.stream()
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.collectingAndThen(
+                Collectors.counting(),
+                Long::intValue
+            )
+        ))
+        .entrySet().stream()
+        .collect(Collectors.toMap(
+            Map.Entry::getKey,
+            entry -> Math.round(entry.getValue() / 2)
+        ));
   }
 
   private static int qtyAppearance(String source, String txtToFind) {
