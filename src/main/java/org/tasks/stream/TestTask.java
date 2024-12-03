@@ -101,4 +101,29 @@ public class TestTask {
         .replaceAll(" +", " ")
         .toLowerCase();
   }
+
+  private static int findMaxWithStream1(List<Integer> intList) {
+    return intList.stream()
+        .reduce(Integer::max)
+        .orElseThrow();
+  }
+
+  private static int findMaxStr(List<Integer> intList) {
+    return intList.stream()
+        .mapToInt(Integer::intValue)
+        .max()
+        .orElseThrow();
+  }
+
+  private static int findMax(List<Integer> integerList) {
+    int maxInt = Integer.MIN_VALUE;
+
+    for (int i = 0; i < integerList.size(); i++) {
+      int s = integerList.get(i);
+      if (s > maxInt) {
+        maxInt = s;
+      }
+    }
+    return maxInt;
+  }
 }
