@@ -28,6 +28,7 @@ public class TestTask {
       + " Quantum framework, leveraging this technology to bridge theoretical insights with"
       + " practical application, thereby marking a potential first in applying these models"
       + " for the analysis of particle jet images in HEP.";
+  private static List<Integer> myList = Arrays.asList(1, 2, 3, 4, 5);
 
   // "bab", "aba"
   public static void main(String[] args) {
@@ -35,8 +36,9 @@ public class TestTask {
 //    List<String> palindromes = findAllPalindromes(s);
 //    palindromes.forEach(System.out::println);
 //    System.out.println(qtyAppearance(cleanUp(txt2), "rt"));
-    List<Integer> arr = Arrays.asList(1, 2, 1, 2, 1, 3, 3, 3, 3, 1, 2);
-    sockMerchant(arr).forEach((key, value) -> System.out.println(key + " = " + value));
+//    List<Integer> arr = Arrays.asList(1, 2, 1, 2, 1, 3, 3, 3, 3, 1, 2);
+//    sockMerchant(arr).forEach((key, value) -> System.out.println(key + " = " + value));
+    System.out.println(findIndexes(myList, 5));
   }
 
   public static List<String> findAllPalindromes(String s) {
@@ -118,12 +120,28 @@ public class TestTask {
   private static int findMax(List<Integer> integerList) {
     int maxInt = Integer.MIN_VALUE;
 
-    for (int i = 0; i < integerList.size(); i++) {
-      int s = integerList.get(i);
+    for (int s : integerList) {
       if (s > maxInt) {
         maxInt = s;
       }
+
     }
     return maxInt;
+  }
+
+  // Given: Given an array of integers nums and an integer target, return indices of the
+  // two numbers such that they add up to target.
+  //
+  //You may assume that each input would have exactly one solution, and you may not use
+  // the same element twice.
+  // URL: https://leetcode.com/problems/two-sum/description/
+  private static List<List<Integer>> findIndexes(List<Integer> list, int target) {
+    return IntStream.range(0, list.size())
+        .boxed()
+        .flatMap(i ->
+            IntStream.range(i + 1, list.size())
+                .filter(j -> list.get(i) + list.get(j) == target)
+                .mapToObj(j -> Arrays.asList(i, j)))
+        .collect(Collectors.toList());
   }
 }
