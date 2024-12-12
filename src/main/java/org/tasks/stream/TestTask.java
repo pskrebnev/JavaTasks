@@ -3,9 +3,11 @@ package org.tasks.stream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -31,7 +33,7 @@ public class TestTask {
       + " for the analysis of particle jet images in HEP.";
   private static List<Integer> myList = Arrays.asList(1, 2, 3, 4, 5);
   private static List<Integer> scoreList
-      = Arrays.asList(10, 12, 30, 35, 45, 50, 53, 60, 75, 80, 98, 100);
+      = Arrays.asList(10, 12, 30, 14, 35, 72, 11, 10, 45, 50, 53, 60, 75, 80, 98, 100);
 
 
   // "bab", "aba"
@@ -48,21 +50,27 @@ public class TestTask {
   }
 
   private static Map<String, Long> countScores(List<Integer> listInts) {
+    Predicate<Integer> isInScope = num -> num >= 0 && num <= 100;
+
     return listInts.stream()
+        .filter(isInScope)
         .map(score -> {
-          if (score <= 30) {
-            return "D";
-          } else if (score <= 40) {
-            return "C";
-          } else if (score <= 60) {
-            return "B";
-          } else {
-            return "A";
-          }
+          if (score <= 30) return "D";
+           else if (score <= 40) return "C";
+           else if (score <= 60) return "B";
+           else return "A";
         })
         .collect(Collectors.groupingBy(
             Function.identity(),
             Collectors.counting()
+        ))
+        .entrySet().stream()
+        .sorted(Map.Entry.<String, Long> comparingByValue().reversed())
+        .collect(Collectors.toMap(
+            Map.Entry::getKey,
+            Map.Entry::getValue,
+            (e1, e2) -> e1,
+            LinkedHashMap::new
         ));
   }
 
