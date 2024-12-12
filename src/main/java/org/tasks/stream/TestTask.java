@@ -2,6 +2,7 @@ package org.tasks.stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -12,7 +13,7 @@ import java.util.stream.IntStream;
 public class TestTask {
 
   static String s = "huhbabadaadababhadkhkjhkkjhiuyiuyihghfhfhfhfdtre";
-  static String txt2 = "This     proposal sets         out to implement several kinds"
+  static String txt2 = "This  proposal sets   out to implement several kinds"
       + " of Quantum Vision Transformers (QViT) for High Energy Physics (HEP)"
       + " analysis at the Large Hadron Collider (LHC), inspired by the seminal"
       + " work of Cherrat et al., which introduces three innovative quantum transformer"
@@ -29,16 +30,48 @@ public class TestTask {
       + " practical application, thereby marking a potential first in applying these models"
       + " for the analysis of particle jet images in HEP.";
   private static List<Integer> myList = Arrays.asList(1, 2, 3, 4, 5);
+  private static List<Integer> scoreList
+      = Arrays.asList(10, 12, 30, 35, 45, 50, 53, 60, 75, 80, 98, 100);
+
 
   // "bab", "aba"
   public static void main(String[] args) {
 //    List<String> palindromes = findPalindromesNO(s);
-//    List<String> palindromes = findAllPalindromes(s);
-//    palindromes.forEach(System.out::println);
+//    List<String> palindromes = findAllPalindromes(txt2);
+//    System.out.println(findLongestStringWithLength(palindromes));
+
 //    System.out.println(qtyAppearance(cleanUp(txt2), "rt"));
 //    List<Integer> arr = Arrays.asList(1, 2, 1, 2, 1, 3, 3, 3, 3, 1, 2);
 //    sockMerchant(arr).forEach((key, value) -> System.out.println(key + " = " + value));
-    System.out.println(findIndexes(myList, 5));
+//    System.out.println(findIndexes(myList, 5));
+    countScores(scoreList).forEach((k, v) -> System.out.println(k + " -> " + v));
+  }
+
+  private static Map<String, Long> countScores(List<Integer> listInts) {
+    return listInts.stream()
+        .map(score -> {
+          if (score <= 30) {
+            return "D";
+          } else if (score <= 40) {
+            return "C";
+          } else if (score <= 60) {
+            return "B";
+          } else {
+            return "A";
+          }
+        })
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        ));
+  }
+
+  // If you need both the string and its length:
+  public static Map.Entry<String, Integer> findLongestStringWithLength(List<String> list) {
+    return list.stream()
+        .map(s -> Map.entry(s, s.length()))
+        .max(Map.Entry.comparingByValue())
+        .orElse(Map.entry("", 0));
   }
 
   public static List<String> findAllPalindromes(String s) {
@@ -110,6 +143,15 @@ public class TestTask {
         .orElseThrow();
   }
 
+  private static void printStr() {
+    IntStream a = IntStream.range(0, 5);
+    IntStream b = IntStream.rangeClosed(7, 10);
+
+    IntStream.concat(a, b)
+        .mapToObj(i -> "Number " + i)
+        .forEach(System.out::println);
+  }
+
   private static int findMaxStr(List<Integer> intList) {
     return intList.stream()
         .mapToInt(Integer::intValue)
@@ -124,7 +166,6 @@ public class TestTask {
       if (s > maxInt) {
         maxInt = s;
       }
-
     }
     return maxInt;
   }
@@ -143,5 +184,19 @@ public class TestTask {
                 .filter(j -> list.get(i) + list.get(j) == target)
                 .mapToObj(j -> Arrays.asList(i, j)))
         .collect(Collectors.toList());
+  }
+
+  private static List<List<Integer>> findIndexesOptimal(List<Integer> list, int target) {
+    List<List<Integer>> result = new ArrayList<>();
+    Map<Integer, Integer> numMap = new HashMap<>();
+
+    for (int i = 0; i <list.size(); i++) {
+      int compl = target - list.get(i);
+      if (numMap.containsKey(compl)) {
+        result.add(Arrays.asList(numMap.get(compl), i));
+      }
+      numMap.put(list.get(i), i);
+    }
+    return result;
   }
 }
