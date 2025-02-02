@@ -2,10 +2,11 @@ package org.tasks.stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -68,7 +69,7 @@ public class TestTask {
         }
       }
     }
-    return listPalindromes.stream().distinct().toList();
+    return listPalindromes;
   }
 
   public static Map<Integer, Integer> sockMerchant(List<Integer> arr) {
@@ -84,26 +85,6 @@ public class TestTask {
         .collect(Collectors.toMap(
             Map.Entry::getKey,
             entry -> Math.round(entry.getValue() / 2)
-        ));
-  }
-
-  private static Map<String, Long> countScores(List<Integer> listScores) {
-
-    Predicate<Integer> isInScope = num -> num >= 0 && num <= 100;
-
-    return listScores.stream()
-        .filter(isInScope)
-        .map(score -> {
-          if (score <= 10) {
-            return "D";
-          } else if (score <= 80) {
-            return "C";
-          }
-          return "A";
-        })
-        .collect(Collectors.groupingBy(
-            Function.identity(),
-            Collectors.counting()
         ));
   }
 
