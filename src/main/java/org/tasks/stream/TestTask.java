@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -68,7 +67,7 @@ public class TestTask {
         }
       }
     }
-    return listPalindromes.stream().distinct().toList();
+    return listPalindromes;
   }
 
   public static Map<Integer, Integer> sockMerchant(List<Integer> arr) {
@@ -115,6 +114,7 @@ public class TestTask {
         .split(txtToFind, -1)
         .length - 1;
   }
+
 
   private static String cleanUp(String s) {
     return Pattern.compile("[^a-zA-Z]")

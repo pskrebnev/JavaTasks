@@ -79,8 +79,7 @@ public class TestInterfaces {
             Function.identity(),
             Collectors.counting()
         ))
-        .entrySet()
-        .stream()
+        .entrySet().stream()
         .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
         .forEach(System.out::println);
   }
