@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.IntPredicate;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -66,7 +68,7 @@ public class TestTask {
         }
       }
     }
-    return listPalindromes;
+    return listPalindromes.stream().distinct().toList();
   }
 
   public static Map<Integer, Integer> sockMerchant(List<Integer> arr) {
@@ -82,6 +84,26 @@ public class TestTask {
         .collect(Collectors.toMap(
             Map.Entry::getKey,
             entry -> Math.round(entry.getValue() / 2)
+        ));
+  }
+
+  private static Map<String, Long> countScores(List<Integer> listScores) {
+
+    Predicate<Integer> isInScope = num -> num >= 0 && num <= 100;
+
+    return listScores.stream()
+        .filter(isInScope)
+        .map(score -> {
+          if (score <= 10) {
+            return "D";
+          } else if (score <= 80) {
+            return "C";
+          }
+          return "A";
+        })
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
         ));
   }
 
