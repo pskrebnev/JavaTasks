@@ -3,6 +3,7 @@ package org.smalltasks;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -31,6 +32,15 @@ public class TaskSet01 {
   private String fileName2 = "results.txt";
   private String filePath2 = "src/main/resources/";
   private String justText = "It has multiple features like support for Cross browser, Cross Platform and Cross language. It can also be used to perform mobile web testing by using the native emulation of Google Chrome for Android and Mobile Safari.";
+  private List<Integer> scoreList = Arrays.asList(90, 54, 6, 68, 52, 48, 17, 44, 39, 2, 40, 44, 33,
+      72, 64, 78, 6, 87, 28, 82, 99, 67, 18, 71, 90, 32, 90, 72, 44, 31, 56, 6, 23, 20, 64, 17, 4,
+      10, 74, 73, 72, 81, 28, 5, 2, 13, 23, 93, 42, 63, 6, 67, 34, 11, 14, 63, 66, 80, 27, 38, 44,
+      26, 38, 54, 89, 49, 31, 1, 25, 40, 44, 6, 2, 0, 31, 65, 96, 93, 75, 87, 87, 60, 94, 0, 19, 55,
+      26, 67, 65, 39, 92, 81, 57, 24, 44, 40, 45, 92, 31, 82, 78, 98, 4, 94, 48, 69, 59, 44, 96, 31,
+      17, 83, 91, 1, 86, 94, 0, 49, 52, 48, 97, 80, 76, 28, 19, 50, 22, 88, 82, 57, 53, 70, 78, 21,
+      94, 85, 98, 60, 54, 24, 66, 6, 40, 54, 28, 19, 3, 92, 37, 14, 85, 88, 80, 55, 28, 100, 94, 11,
+      36, 82, 6, 66, 55, 74, 59, 85, 59, 80, 64, 91, 51, 22, 8, 53, 45, 9, 46, 94, 24, 83, 99, 20,
+      90, 83, 50, 20, 23, 88, 68, 6, 54, 16, 51, 69, 1, 25, 42, 35, 7, 98);
 
   // 1. read file from source and put it in a String
   @Test
@@ -137,6 +147,11 @@ public class TaskSet01 {
     System.out.println("Text '" + txtToFind + "' appears " + count + " times.");
   }
 
+  @Test
+  public void pringStr() {
+    getScoresQty(getScores(scoreList))
+        .forEach((k, v) -> System.out.println(k + " -> " + v));
+  }
 
   private String cleanUpText(String s) {
     return Pattern.compile("[^a-zA-Z]")
@@ -151,5 +166,35 @@ public class TaskSet01 {
     try (Stream<String> rows = Files.lines(Paths.get(fullPathToText))) {
       return rows.collect(Collectors.joining());
     }
+  }
+
+  // 0 to 20 -> "D"
+  // 21 to 40 -> "C"
+  // 41 to 85 -> "B"
+  // 86 to 100 -> "A"
+  private List<String> getScores(List<Integer> listInt) {
+    return listInt.stream()
+        .map(score -> {
+          if (score >= 0 && score <= 20) {
+            return "D";
+          } else if (score >= 21 && score <= 40) {
+            return "C";
+          } else if (score >= 41 && score <= 85) {
+            return "B";
+          }
+          return "A";
+        })
+        .collect(Collectors.toList());
+  }
+
+  private Map<String, Integer> getScoresQty(List<String> scores) {
+    return scores.stream()
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.collectingAndThen(
+                Collectors.counting(),
+                Long::intValue
+            )
+        ));
   }
 }
