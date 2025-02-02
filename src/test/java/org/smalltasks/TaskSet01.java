@@ -197,4 +197,12 @@ public class TaskSet01 {
             )
         ));
   }
+
+  private Map<String, Integer> getScQt(List<String> scores) {
+    return scores.stream()
+        .collect(Collectors.groupingBy(
+            s -> s,
+            Collectors.summingInt(s -> 1)
+        ));
+  }
 }
