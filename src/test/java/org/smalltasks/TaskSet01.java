@@ -102,7 +102,7 @@ public class TaskSet01 {
     Arrays.stream(cleanUpText(getTextFromFile(filePath1 + fileName1))
             .split("\\s"))
         .collect(Collectors.toMap(
-            word -> word,
+            Function.identity(),
             word -> (long) word.length(),
             (oldValue, newValue) -> oldValue, LinkedHashMap::new
         ))
@@ -127,7 +127,7 @@ public class TaskSet01 {
             Collectors.counting()
         ))
         .entrySet().stream()
-        .sorted(Map.Entry.comparingByKey())
+        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
         .forEach(item -> System.out.println(item.getKey() + " = " + item.getValue()));
   }
 
@@ -168,18 +168,18 @@ public class TaskSet01 {
     }
   }
 
-  // 0 to 20 -> "D"
-  // 21 to 40 -> "C"
-  // 41 to 85 -> "B"
-  // 86 to 100 -> "A"
+  // 0 to 30 -> "D"
+  // 31 to 60 -> "C"
+  // 61 to 95 -> "B"
+  // 96 to 100 -> "A"
   private List<String> getScores(List<Integer> listInt) {
     return listInt.stream()
         .map(score -> {
-          if (score >= 0 && score <= 20) {
+          if (score >= 0 && score <= 30) {
             return "D";
-          } else if (score >= 21 && score <= 40) {
+          } else if (score >= 31 && score <= 60) {
             return "C";
-          } else if (score >= 41 && score <= 85) {
+          } else if (score >= 61 && score <= 96) {
             return "B";
           }
           return "A";
