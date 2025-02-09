@@ -1,20 +1,28 @@
 package org.smalltasks;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
-import java.util.Locale;
 
 public class GenerateWeekTemplate {
 
   private final LocalDate weekStart;
   private final LocalDate weekEnd;
   private final DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-  private final DateTimeFormatter monthDayYearFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+  private final DateTimeFormatter monthDayYearFormatter = DateTimeFormatter.ofPattern(
+      "MMMM dd, yyyy");
   private final DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM-dd");
 
   public static void main(String[] args) {
-    GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, 7); // For the week containing Feb 3, 2025
+    GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, 7);
+
+    String outputFolderName = "src/test/resources";
+    generator.writeTemplateToFile(outputFolderName);
+
     String template = generator.generateTemplate();
     System.out.println(template);
   }
@@ -85,10 +93,12 @@ public class GenerateWeekTemplate {
     StringBuilder table = new StringBuilder();
 
     // Header row
-    table.append("|              Mon               |              Tue               |               Wed                |              Thu               |               Fri                |               Sat               |               Sun               |\n");
+    table.append(
+        "|              Mon               |              Tue               |               Wed                |              Thu               |               Fri                |               Sat               |               Sun               |\n");
 
     // Separator row
-    table.append("|:------------------------------:|:------------------------------:|:--------------------------------:|:------------------------------:|:--------------------------------:|:-------------------------------:|:-------------------------------:|\n");
+    table.append(
+        "|:------------------------------:|:------------------------------:|:--------------------------------:|:------------------------------:|:--------------------------------:|:-------------------------------:|:-------------------------------:|\n");
 
     // Date row
     table.append("|");
@@ -103,5 +113,33 @@ public class GenerateWeekTemplate {
     table.append("\n\n");
 
     return table.toString();
+  }
+
+  public void writeTemplateToFile(String outputDirectory) {
+    // Create filename using the week start date
+    String fileName = String.format("%s-W%02d.md",
+        weekStart.getYear(),
+        weekStart.get(WeekFields.ISO.weekOfWeekBasedYear()));
+//    String fileName = String.format("%s-W%02d.md",
+//        weekStart.getYear(),
+//        weekStart.get(WeekFields.ISO.weekOfWeekBasedYear()));
+
+    Path filePath = Path.of(outputDirectory, fileName);
+
+    try {
+      // Create directories if they don't exist
+      Files.createDirectories(filePath.getParent());
+
+      // Write the template to file
+      try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+        writer.write(generateTemplate());
+      }
+
+      System.out.println("Template successfully written to: " + filePath);
+
+    } catch (IOException e) {
+      System.err.println("Error writing template to file: " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 }
