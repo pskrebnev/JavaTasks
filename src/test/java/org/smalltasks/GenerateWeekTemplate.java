@@ -14,13 +14,13 @@ public class GenerateWeekTemplate {
   private final DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM-dd");
 
   public static void main(String[] args) {
-    GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, 6); // For the week containing Feb 3, 2025
+    GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, 7); // For the week containing Feb 3, 2025
     String template = generator.generateTemplate();
     System.out.println(template);
   }
 
   public GenerateWeekTemplate(int year, int weekNumber) {
-    WeekFields weekFields = WeekFields.of(Locale.getDefault());
+    WeekFields weekFields = WeekFields.ISO;
     this.weekStart = LocalDate.of(year, 1, 1)
         .with(weekFields.weekOfWeekBasedYear(), weekNumber)
         .with(weekFields.dayOfWeek(), 1);
