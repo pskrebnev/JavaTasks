@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
+import java.util.stream.IntStream;
 
 public class GenerateWeekTemplate {
 
@@ -18,13 +19,11 @@ public class GenerateWeekTemplate {
   private final DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM-dd");
 
   public static void main(String[] args) {
-    GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, 7);
-
-    String outputFolderName = "src/test/resources";
-    generator.writeTemplateToFile(outputFolderName);
-
-    String template = generator.generateTemplate();
-    System.out.println(template);
+    String outputFolder = "src/test/resources";
+    IntStream.rangeClosed(8, 20).forEach(num -> {
+      GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, num);
+      generator.writeTemplateToFile(outputFolder);
+    });
   }
 
   public GenerateWeekTemplate(int year, int weekNumber) {
@@ -120,9 +119,6 @@ public class GenerateWeekTemplate {
     String fileName = String.format("%s-W%02d.md",
         weekStart.getYear(),
         weekStart.get(WeekFields.ISO.weekOfWeekBasedYear()));
-//    String fileName = String.format("%s-W%02d.md",
-//        weekStart.getYear(),
-//        weekStart.get(WeekFields.ISO.weekOfWeekBasedYear()));
 
     Path filePath = Path.of(outputDirectory, fileName);
 

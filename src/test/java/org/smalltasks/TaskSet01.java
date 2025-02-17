@@ -153,6 +153,20 @@ public class TaskSet01 {
         .forEach((k, v) -> System.out.println(k + " -> " + v));
   }
 
+  @Test
+  public void findOccur() {
+    String simpleText = "There aren’t already more 10x professionals because, in many roles,"
+        + " the gap between the best and the average worker has a ceiling. No matter how athletic"
+        + " a supermarket checkout clerk is, they’re not likely to scan groceries so fast that"
+        + " customers get out of the store 10x faster. Similarly, even the best doctor is"
+        + " unlikely to make patients heal 10x faster than an average one (but to a sick patient,"
+        + " even a small difference is worth a lot). In many jobs, the laws of physics"
+        + " place a limit on what any human or AI can do (unless we completely"
+        + " reimagine that job).";
+
+    getStat(simpleText).forEach((key, val) -> System.out.println(key + " = " + val));
+  }
+
   private String cleanUpText(String s) {
     return Pattern.compile("[^a-zA-Z]")
         .matcher(s)
@@ -203,6 +217,26 @@ public class TaskSet01 {
         .collect(Collectors.groupingBy(
             s -> s,
             Collectors.summingInt(s -> 1)
+        ));
+  }
+
+  private Map<String, Long> getStat(String txt) {
+    return txt.chars()
+        .mapToObj(ch -> (char) ch)
+        .filter(s -> !s.equals(' '))
+        .map(Object::toString)
+        .map(String::toLowerCase)
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        ))
+        .entrySet().stream()
+        .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+        .collect(Collectors.toMap(
+            Map.Entry::getKey,
+            Map.Entry::getValue,
+            (i1, i2) -> i1,
+            LinkedHashMap::new
         ));
   }
 }
