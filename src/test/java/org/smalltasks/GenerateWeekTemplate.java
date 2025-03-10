@@ -20,7 +20,9 @@ public class GenerateWeekTemplate {
 
   public static void main(String[] args) {
     String outputFolder = "src/test/resources";
-    IntStream.rangeClosed(8, 20).forEach(num -> {
+
+    // HERE INPUT START AND END NUMBER OF WEEK. THEN -- YEAR
+    IntStream.rangeClosed(21, 25).forEach(num -> {
       GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, num);
       generator.writeTemplateToFile(outputFolder);
     });

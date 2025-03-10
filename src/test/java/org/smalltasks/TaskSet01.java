@@ -164,7 +164,9 @@ public class TaskSet01 {
         + " place a limit on what any human or AI can do (unless we completely"
         + " reimagine that job).";
 
-    getStat(simpleText).forEach((key, val) -> System.out.println(key + " = " + val));
+    String cleanedText = cleanUpText(simpleText);
+
+    getStat(cleanedText).forEach((key, val) -> System.out.println(key + " = " + val));
   }
 
   private String cleanUpText(String s) {
