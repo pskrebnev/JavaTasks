@@ -67,5 +67,4 @@ public class TestReading {
         .toLowerCase()
         .replaceAll(" +", " ");
   }
-
 }
