@@ -44,7 +44,7 @@ public class ItemValidator {
 
   private static boolean isValid(Object item) {
 
-    String st = item == null? "null" : item.toString();
+    String st = item == null ? "null" : item.toString();
 
     Predicate<String> is6Symbols = str -> str.length() == 6;
     Predicate<String> isAllDigits = str -> str.matches("\\d+");
