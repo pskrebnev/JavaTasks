@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.Comparator;
 
 public class TestTask {
 
@@ -40,6 +41,12 @@ public class TestTask {
 //    System.out.println(qtyAppearance(cleanUp(txt2), "rt"));
     List<Integer> arr = Arrays.asList(1, 2, 1, 2, 1, 3, 3, 3, 3, 1, 2);
     sockMerchant(arr).forEach((key, value) -> System.out.println(key + " = " + value));
+
+    // Test character frequency counter
+    System.out.println("\nCharacter frequency in sample text:");
+    countCharFrequency("Hello, World!").entrySet().stream()
+        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+        .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
   }
 
   public static List<String> findAllPalindromes(String s) {
@@ -129,5 +136,24 @@ public class TestTask {
       }
     }
     return maxInt;
+  }
+
+  /**
+   * Counts the frequency of each character in the input text.
+   * 
+   * @param text the input text to analyze
+   * @return a map where keys are characters and values are their frequencies
+   */
+  public static Map<Character, Long> countCharFrequency(String text) {
+    if (text == null || text.isEmpty()) {
+      return new HashMap<>();
+    }
+
+    return text.chars()
+        .mapToObj(c -> (char) c)
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        ));
   }
 }

@@ -15,14 +15,14 @@ public class GenerateWeekTemplate {
   private final LocalDate weekEnd;
   private final DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private final DateTimeFormatter monthDayYearFormatter = DateTimeFormatter.ofPattern(
-      "MMMM dd, yyyy");
+      "EEE, MMMM dd, yyyy");
   private final DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM-dd");
 
   public static void main(String[] args) {
     String outputFolder = "src/test/resources";
 
     // HERE INPUT START AND END NUMBER OF WEEK. THEN -- YEAR
-    IntStream.rangeClosed(21, 25).forEach(num -> {
+    IntStream.rangeClosed(26, 40).forEach(num -> {
       GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, num);
       generator.writeTemplateToFile(outputFolder);
     });
@@ -106,7 +106,8 @@ public class GenerateWeekTemplate {
     LocalDate current = weekStart;
     for (int i = 0; i < 7; i++) {
       String formattedDate = String.format("[[#%s\\|%s]]",
-          current.format(monthDayYearFormatter),
+//          current.format(monthDayYearFormatter),
+          current.format(shortFormatter),
           current.format(DateTimeFormatter.ofPattern("MMM-dd")));
       table.append(String.format(" %-30s|", formattedDate));
       current = current.plusDays(1);
