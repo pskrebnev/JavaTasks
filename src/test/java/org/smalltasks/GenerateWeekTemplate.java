@@ -22,7 +22,7 @@ public class GenerateWeekTemplate {
     String outputFolder = "src/test/resources";
 
     // HERE INPUT START AND END NUMBER OF WEEK. THEN -- YEAR
-    IntStream.rangeClosed(26, 40).forEach(num -> {
+    IntStream.rangeClosed(26, 26).forEach(num -> {
       GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, num);
       generator.writeTemplateToFile(outputFolder);
     });
@@ -106,9 +106,8 @@ public class GenerateWeekTemplate {
     LocalDate current = weekStart;
     for (int i = 0; i < 7; i++) {
       String formattedDate = String.format("[[#%s\\|%s]]",
-//          current.format(monthDayYearFormatter),
-          current.format(shortFormatter),
-          current.format(DateTimeFormatter.ofPattern("MMM-dd")));
+          current.format(monthDayYearFormatter),
+          current.format(shortFormatter));
       table.append(String.format(" %-30s|", formattedDate));
       current = current.plusDays(1);
     }
