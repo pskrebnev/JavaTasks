@@ -36,9 +36,7 @@ public class ReadTest {
   }
 
   private static Map<String, Long> countSimilarWords(String text) {
-    List<String> words = Arrays.stream(text.split("\\s+")).toList();
-
-    return words.stream()
+    return Arrays.stream(text.split("\\s+"))
         .collect(Collectors.groupingBy(
             Function.identity(),
             Collectors.counting()

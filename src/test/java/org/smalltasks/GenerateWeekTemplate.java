@@ -17,13 +17,15 @@ public class GenerateWeekTemplate {
   private final DateTimeFormatter monthDayYearFormatter = DateTimeFormatter.ofPattern(
       "EEE, MMMM dd, yyyy");
   private final DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM-dd");
+  private final String mainMindMap = "**See details:** `KBMAIN/01_INBOX/MAIN01.xmind`";
+  private final String currentProjects = "![[01_INBOX/Projects.png]]";
 
   public static void main(String[] args) {
     String outputFolder = "src/test/resources";
 
-    // HERE INPUT START AND END NUMBER OF WEEK. THEN -- YEAR
-    IntStream.rangeClosed(26, 26).forEach(num -> {
-      GenerateWeekTemplate generator = new GenerateWeekTemplate(2025, num);
+    // HERE INPUT 'START' AND 'END' NUMBER OF WEEK. THEN -- YEAR
+    IntStream.rangeClosed(1, 20).forEach(num -> {
+      GenerateWeekTemplate generator = new GenerateWeekTemplate(2026, num);
       generator.writeTemplateToFile(outputFolder);
     });
   }
@@ -64,6 +66,11 @@ public class GenerateWeekTemplate {
 
     // TODO section
     template.append("---\n");
+    // insert
+    template.append(mainMindMap);
+    template.append(currentProjects);
+    // insert
+    template.append("\n");
     template.append("#### TODO\n");
     template.append("```dataview\n");
     template.append("TASK\n");
@@ -79,7 +86,7 @@ public class GenerateWeekTemplate {
     LocalDate currentDate = weekEnd;
     while (!currentDate.isBefore(weekStart)) {
       template.append("---\n");
-      template.append(String.format("### %s\n", currentDate.format(monthDayYearFormatter)));
+      template.append(String.format("## %s\n", currentDate.format(monthDayYearFormatter)));
       template.append("[TBD]\n\n");
       currentDate = currentDate.minusDays(1);
     }

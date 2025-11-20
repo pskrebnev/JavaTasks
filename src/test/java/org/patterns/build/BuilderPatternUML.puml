@@ -1,0 +1,46 @@
+@startuml
+package "org.patterns.build" {
+  class Person {
+    - firstName: String
+    - lastName: String
+    - age: int
+    - email: String
+    - phoneNumber: String
+    - address: String
+    - Person(builder: PersonBuilder)
+    + getFirstName(): String
+    + getLastName(): String
+    + getAge(): int
+    + getEmail(): String
+    + getPhoneNumber(): String
+    + getAddress(): String
+    + toString(): String
+  }
+
+  class "Person.PersonBuilder" as PersonBuilder {
+    - firstName: String
+    - lastName: String
+    - age: int
+    - email: String
+    - phoneNumber: String
+    - address: String
+    + PersonBuilder(firstName: String, lastName: String)
+    + age(age: int): PersonBuilder
+    + email(email: String): PersonBuilder
+    + phoneNumber(phoneNumber: String): PersonBuilder
+    + address(address: String): PersonBuilder
+    + build(): Person
+  }
+
+  class BuilderPatternDemo {
+    + main(args: String[]): void
+  }
+
+  Person +-- PersonBuilder
+  BuilderPatternDemo ..> Person : creates
+  BuilderPatternDemo ..> PersonBuilder : uses
+}
+
+note "The Builder Pattern allows step-by-step\nconstruction of complex objects,\nseparating construction from representation" as N1
+N1 .. PersonBuilder
+@enduml
