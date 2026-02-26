@@ -1,5 +1,7 @@
 package org.kotlin.interfaces.tiktak2
 
+import kotlin.system.exitProcess
+
 class TikTakToe {
   private val board = MutableList<Cell>(size = 9) { Cell.Empty }
   private var status: Status = Status.Idle
@@ -52,6 +54,7 @@ class TikTakToe {
         element = Cell.Filled(player = player)
       )
       generateComputerMove()
+      checkTheBoard()
       printBoard()
     } else {
       println("Cell already taken, choose another")
@@ -90,6 +93,78 @@ class TikTakToe {
 
     val player1Cells = mutableListOf<Int>()
     val player2Cells = mutableListOf<Int>()
+    board.forEachIndexed { index, cell ->
+      if (cell.placeholder == 'X')
+        player1Cells.add(element = index)
+      if (cell.placeholder == 'O')
+        player2Cells.add(element = index)
+    }
+
+    println("Your moves: $player1Cells")
+    println("Computer moves: $player2Cells")
+
+    run CombinationLoop@{
+      winningCombinations.forEach { combination ->
+        if (player1Cells.containsAll(elements = combination)) {
+          won()
+          return@CombinationLoop
+        }
+        if (player2Cells.containsAll(elements = combination)) {
+          lost()
+          return@CombinationLoop
+        }
+      }
+    }
+
+    if (board.none { it is Cell.Empty } && status is Status.Running) {
+      draw()
+    }
+    if (status is Status.GameOver) {
+      finish()
+      playAgain()
+    }
+  }
+
+  private fun finish() {
+    status = Status.Idle
+    board.replaceAll { Cell.Empty }
+  }
+
+  private fun playAgain() {
+    print("Do you want to play another game? (Y/N): ")
+    val input = readlnOrNull()
+    try {
+      require(value = input != null)
+      val capitalizedInput = input.replaceFirstChar(Char::titlecase)
+      val positive = capitalizedInput.contains(other = "Y")
+      val negative = capitalizedInput.contains(other = "N")
+      require(value = positive || negative)
+      if (positive)
+        start()
+      else if (negative)
+        exitProcess(status = 0)
+    } catch (e: IllegalArgumentException) {
+      println("Wrong option. Try either 'Y' or 'N'.")
+      playAgain()
+    }
+  }
+
+  private fun won() {
+    status = Status.GameOver
+    printBoard()
+    println("My congrats! ${player.name}, you won")
+  }
+
+  private fun lost() {
+    status = Status.GameOver
+    printBoard()
+    println("Hey, ${player.name}. You lost")
+  }
+
+  private fun draw() {
+    status = Status.GameOver
+    printBoard()
+    println("The draw :(")
   }
 
   private fun printBoard() {
