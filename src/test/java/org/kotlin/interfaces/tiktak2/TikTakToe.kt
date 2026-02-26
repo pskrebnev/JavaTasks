@@ -26,6 +26,18 @@ class TikTakToe {
       println("Invalid name")
     }
   }
+
+  private fun printBoard() {
+    println()
+    println("+-----+-----+-----+")
+    println("|  ${board[0].placeholder}  |  ${board[1].placeholder}  |  ${board[2].placeholder}  |")
+    println("+-----+-----+-----+")
+    println("|  ${board[3].placeholder}  |  ${board[4].placeholder}  |  ${board[5].placeholder}  |")
+    println("+-----+-----+-----+")
+    println("|  ${board[6].placeholder}  |  ${board[7].placeholder}  |  ${board[8].placeholder}  |")
+    println("+-----+-----+-----+")
+    println()
+  }
 }
 
 data class Player(
