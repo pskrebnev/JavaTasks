@@ -39,9 +39,18 @@ class TikTakToe {
       require(value = input != null)
       val cellNumber = input.toInt()
       require(value = cellNumber in 0..8)
+      setCell(cellNumber = cellNumber)
     } catch (e: Throwable) {
       println("Invalid number")
     }
+  }
+
+  private fun setCell(cellNumber: Int) {
+    val cell = board[cellNumber]
+    if (cell is Cell.Empty) {
+
+    }
+
   }
 
   private fun printBoard() {
