@@ -13,6 +13,11 @@ class TikTakToe {
     println("|Pick a number from '0' to '8'|")
     println("+-----------------------------+")
     getName()
+
+    while (status is Status.Running) {
+      getCell()
+
+    }
   }
 
   private fun getName() {
@@ -21,9 +26,21 @@ class TikTakToe {
     try {
       require(value = name != null)
       player = Player(name = name, symbol = 'X')
-      println("It's your move $name")
+      println("It's your move, $name")
+      printBoard()
     } catch (e: Throwable) {
       println("Invalid name")
+    }
+  }
+
+  private fun getCell() {
+    val input = readlnOrNull()
+    try {
+      require(value = input != null)
+      val cellNumber = input.toInt()
+      require(value = cellNumber in 0..8)
+    } catch (e: Throwable) {
+      println("Invalid number")
     }
   }
 

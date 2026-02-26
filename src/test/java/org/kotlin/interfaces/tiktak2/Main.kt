@@ -1,4 +1,6 @@
 package org.kotlin.interfaces.tiktak2
 
-class Main {
+fun main() {
+  val game = TikTakToe()
+  game.start()
 }
