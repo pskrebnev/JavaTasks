@@ -1,8 +1,10 @@
 package org.smalltasks.leetcode;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -19,18 +21,14 @@ public class LongestStrWORepeating {
     String str2 = "adrswyhgbzqqwsrwg";
     String str3 =
         "We’ve collected over 30 essential Kotlin Multiplatform (KMP) and Compose Multiplatform learning materials. Browse by skill level to find tutorials, courses, and articles that fit your experience:\n"
-            + "\n"
-            + "\uD83C\uDF31 Beginner. Learn KMP and Compose fundamentals through official JetBrains and Google tutorials. Build simple apps using core libraries like Room, Ktor, and SQLDelight.\n"
-            + "\n"
-            + "\uD83C\uDF3F Intermediate. Develop real-world apps with shared ViewModels, Koin-based dependency injection, and clean architecture. Learn through courses by JetBrains and community educators.\n"
-            + "\n"
-            + "\uD83C\uDF33 Advanced. Progress to full-scale KMP engineering for backend and game development, with guidance on scaling architecture and adoption for large, multi-team projects.\n"
-            + "\n"
-            + "\uD83E\uDDE9 Library authors. Create and publish reusable KMP libraries. Learn API design, Dokka documentation, and Maven publishing with official JetBrains tooling and templates.";
+            + " Beginner. Learn KMP and Compose fundamentals through official JetBrains and Google tutorials. Build simple apps using core libraries like Room, Ktor, and SQLDelight.\n"
+            + " Intermediate. Develop real-world apps with shared ViewModels, Koin-based dependency injection, and clean architecture. Learn through courses by JetBrains and community educators.\n"
+            + " Advanced. Progress to full-scale KMP engineering for backend and game development, with guidance on scaling architecture and adoption for large, multi-team projects.\n"
+            + " Library authors. Create and publish reusable KMP libraries. Learn API design, Dokka documentation, and Maven publishing with official JetBrains tooling and templates.";
 
 //    System.out.println(findLongestUnique(str1));
 //    System.out.println(findLongestUnique(str2));
-    countWords(cleanUp(str3)).forEach((k, v) -> System.out.println(k + " -> " + v));
+    countWords1(cleanUp(str3)).forEach((k, v) -> System.out.println(k + " -> " + v));
   }
 
   private static String findLongestUnique(String str) {
@@ -89,5 +87,26 @@ public class LongestStrWORepeating {
         .trim()
         .replaceAll(" +", " ")
         .toLowerCase();
+  }
+
+  private static List<String> sortArr(List<String> list) {
+    Collections.sort(list);
+    return list;
+  }
+
+  private static Map<String, Long> countWords1(String str) {
+    return Arrays.stream(str.split(" "))
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        )).entrySet().stream()
+        .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+        .limit(3)
+        .collect(Collectors.toMap(
+            Map.Entry::getKey,
+            Map.Entry::getValue,
+            (oldV, newV) -> oldV,
+            LinkedHashMap::new
+        ));
   }
 }

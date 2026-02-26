@@ -1,7 +1,9 @@
 package org.smalltasks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 public class TaskTest03 {
 
   public static void main(String[] args) {
+    String directStr = "macOS versions with Apple security update support. This is typically the"
+        + " current and two previous versions";
     String simpleText =
         "In today’s fast-evolving software landscape, delivering high-quality applications at scale is a constant challenge. Traditional API testing often involves writing complex scripts, maintaining boilerplate code, and dealing with brittle test suites. Enter Playwright MCP (Model Context Protocol) combined with Large Language Models (LLMs) — a revolutionary duo that simplifies API automation by enabling testers to write tests in plain English, reducing coding overhead, and enhancing test efficiency.\n"
             + "In this blog, we’ll explore how Playwright MCP, powered by LLMs like Claude, transforms API automation, with practical examples drawn from the ExecuteAutomation Playwright MCP repository.\n"
@@ -28,6 +32,7 @@ public class TaskTest03 {
     System.out.println("--------------");
     countChars(text).forEach((k, v) -> System.out.println(k + " -> " + v));
     System.out.println("Pattern 're' occurs " + countOccurrences(text, "re") + " times");
+    System.out.println(revertWordsSequence(directStr));
   }
 
   // count occurrences of words
@@ -90,5 +95,14 @@ public class TaskTest03 {
         .map(Character::toLowerCase)
         .map(String::valueOf)
         .collect(Collectors.joining());
+  }
+
+  private static String revertWordsSequence(String str) {
+    List<String> list = new ArrayList<>();
+
+    Arrays.stream(str.split(" "))
+        .forEach(list::addFirst);
+
+    return String.join(" ", list);
   }
 }

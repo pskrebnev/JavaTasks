@@ -37,7 +37,6 @@ private fun countWords(str: String): Map<String, Long> {
 }
 
 private fun cleanText(st: String): String {
-    return st.filter { it.isLetter() || it == ' ' }
-        .lowercase()
+  return st.filter { it.isLetterOrDigit() || it == ' ' }.lowercase();
 }
 

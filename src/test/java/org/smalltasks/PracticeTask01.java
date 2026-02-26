@@ -1,9 +1,11 @@
 package org.smalltasks;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.smalltasks.objects.Employee;
 import org.smalltasks.objects.Order;
@@ -12,7 +14,7 @@ import org.smalltasks.objects.Product;
 public class PracticeTask01 {
 
   public static void main(String[] args) {
-    String st = "Returns a string representation of the object.";
+    String st = "Returns a string representation of the object. #$# 4566";
     // for task 1
     List<Product> products = List.of(
         new Product("Electronics", 999.99),
@@ -48,9 +50,10 @@ public class PracticeTask01 {
         new Order("Mike", 120.75)
     );
 
-    calcAveragePrice(products).forEach((k, v) -> System.out.println(k + "->" + v));
-    countByDepartment(employees).forEach((k, v) -> System.out.println(k + " -> " + v));
-    countSpentByCustomer(orders).forEach((k, v) -> System.out.println(k + " = " + v));
+//    calcAveragePrice(products).forEach((k, v) -> System.out.println(k + "->" + v));
+//    countByDepartment(employees).forEach((k, v) -> System.out.println(k + " -> " + v));
+//    countSpentByCustomer(orders).forEach((k, v) -> System.out.println(k + " = " + v));
+    countWords(cleanUp(st)).forEach((k, v) -> System.out.println(k + "->" + v));
   }
 
   //  Task 1: Group products by category and calculate the average price in each category.
@@ -106,4 +109,25 @@ public class PracticeTask01 {
             LinkedHashMap::new
         ));
   }
+
+  private static String cleanUp(String txt) {
+    Predicate<String> isCharOrDigit = str -> String.valueOf(str)
+        .matches("[a-zA-Z0-9 ]+");
+
+    return txt.chars()
+        .mapToObj(c -> (char) c)
+        .map(String::valueOf)
+        .filter(isCharOrDigit)
+        .collect(Collectors.joining())
+        .replaceAll(" +", " ");
+  }
+
+  private static Map<String, Long> countWords(String str) {
+    return Arrays.stream(str.split(" "))
+        .collect(Collectors.groupingBy(
+            Function.identity(),
+            Collectors.counting()
+        ));
+  }
+
 }
