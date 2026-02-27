@@ -53,6 +53,7 @@ class TikTakToe {
         index = cellNumber,
         element = Cell.Filled(player = player)
       )
+      checkTheBoard()
       generateComputerMove()
       checkTheBoard()
       printBoard()
