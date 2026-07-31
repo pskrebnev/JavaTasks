@@ -46,6 +46,7 @@ dependencies {
     // Spring Framework dependencies
     implementation("org.springframework:spring-core:6.2.11")
     implementation("org.springframework:spring-context:6.2.7")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 }
 
 java {

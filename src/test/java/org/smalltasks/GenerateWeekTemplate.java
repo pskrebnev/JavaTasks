@@ -17,14 +17,14 @@ public class GenerateWeekTemplate {
   private final DateTimeFormatter monthDayYearFormatter = DateTimeFormatter.ofPattern(
       "EEE, MMMM dd, yyyy");
   private final DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM-dd");
-  private final String mainMindMap = "**See details:** `KBMAIN/01_INBOX/MAIN01.xmind`";
-  private final String currentProjects = "![[01_INBOX/Projects.png]]";
+  private final String mainMindMap = "### Current Projects:\n";
+  private final String currentProjects = "![[CurrentProjects|CurrentProjects]]";
 
   public static void main(String[] args) {
     String outputFolder = "src/test/resources";
 
     // HERE INPUT 'START' AND 'END' NUMBER OF WEEK. THEN -- YEAR
-    IntStream.rangeClosed(1, 20).forEach(num -> {
+    IntStream.rangeClosed(35, 53).forEach(num -> {
       GenerateWeekTemplate generator = new GenerateWeekTemplate(2026, num);
       generator.writeTemplateToFile(outputFolder);
     });

@@ -3,6 +3,7 @@ package org.manipulations.test.files;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +16,12 @@ public class TestCharCounting {
     String phrase = "Learn Java functional programing with Lambda  Streams. Learn the"
         + " exciting  powerful new features of Java 7 and Java 8";
 
+    Predicate<Character> isSpace = Character::isSpaceChar;
+
     phrase.chars()
         .mapToObj(c -> (char) c)
         .map(Character::toLowerCase)
+        .filter(isSpace.negate())
         .collect(Collectors.groupingBy(
             Function.identity(),
             Collectors.counting()
